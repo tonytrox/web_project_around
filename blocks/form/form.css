@@ -1,0 +1,16 @@
+.form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  margin: auto;
+  /* opacity: 0; */
+}
+
+.form_view {
+  display: flex;
+}

@@ -1,0 +1,12 @@
+.elements {
+  width: 282px;
+  padding-top: 50px;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 720px) {
+  .elements {
+    width: 880px;
+    padding-top: 50px;
+  }
+}

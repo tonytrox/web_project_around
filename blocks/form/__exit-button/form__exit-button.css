@@ -1,0 +1,29 @@
+.form__exit-button {
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  background-image: url(../../../images/closeform_icon.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: calc(100% + 13px);
+  right: 0
+}
+
+.form__exit-button:hover {
+  opacity: 0.5;
+}
+
+@media screen and (min-width: 720px) {
+  .form__exit-button {
+    width: 40px;
+    height: 40px;
+    bottom: calc(100% + 0px);
+    left: calc(100% + 0px);
+  }
+}

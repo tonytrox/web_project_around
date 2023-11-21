@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alrededor de los EE.UU.</title>
+  <link rel="shortcut icon" href="icono/favicon.ico">
+  <link rel="stylesheet" href="pages/style.css">
+  <link rel="stylesheet" href="pages/normalize.css">
+</head>
+<body>
+  <header class="header">
+    <img class="header__logo" src="images/logo_aroundus.svg" alt="logo around the world USA" />
+  </header>
+  <main class="content">
+    <section class="profile">
+      <img class="profile__image" src="images/jacques.png" alt="profile avatar"/>
+      <div class="profile__info">
+        <h1 class="profile__title">Jacques Cousteau</h1>
+        <h2 class="profile__description">Explorer</h2>
+        <button class="profile__edit-button"></button>
+      </div>
+      <button class="profile__add"></button>
+    </section>
+    <section class="elements">
+      <ul class="element__list">
+        <li>
+          <div class="element__container">
+            <img class="element__img" src="images/Yosemite_Valley.jpeg" alt="Yosemite Valley" />
+            <div class="element__description">
+            <h2 class="element__text">Yosemite Valley</h2>
+            <button class="element__like-button"></button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="element__container">
+            <img class="element__img" src="images/Lake_Louise.jpeg" alt="Lake Louise" />
+            <div class="element__description">
+            <h2 class="element__text">Lake Louise</h2>
+            <button class="element__like-button"></button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="element__container">
+            <img class="element__img" src="images/Bald_Mountains.jpeg" alt="Bald Mountains"/>
+            <div class="element__description">
+            <h2 class="element__text">Bald Mountains</h2>
+            <button class="element__like-button"></button>
+          </div>
+          </div>
+        </li>
+        <li>
+          <div class="element__container">
+            <img class="element__img" src="images/Latemar.jpeg" alt="Latemar"/>
+            <div class="element__description">
+            <h2 class="element__text">Latemar</h2>
+            <button class="element__like-button"></button></div>
+          </div>
+        </li>
+        <li>
+          <div class="element__container">
+            <img class="element__img" src="images/Vanoise_National_Park.jpeg" alt="Vanoise National Park"/>
+            <div class="element__description">
+            <h2 class="element__text">Vanoise National Park</h2>
+            <button class="element__like-button"></button></div>
+          </div>
+        </li>
+        <li>
+          <div class="element__container">
+            <img class="element__img" src="images/Lago_di_Braies.jpeg" alt="Lago di Braies">
+            <div class="element__description">
+            <h2 class="element__text">Lago di Braies</h2>
+            <button class="element__like-button"></button></div>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2023 Around The U.S.</p>
+  </footer>
+
+  <!-- -- MODAL -- -->
+
+  <div class="form">
+    
+    <div class="form__container">
+      <button class="form__exit-button"></button>
+      <h2 class="form__title">Edit profile</h2>
+      <input
+            class="form__name"
+            type="text"
+            name="name"
+            placeholder="Name"
+            required
+          />
+      <input
+            class="form__description"
+            type="text"
+            name="description"
+            placeholder="Description"
+            required
+          />
+      <div class=form__save-button>Save</div>
+    </div>
+  </div>
+
+</body>
+<script src="scripts/script.js"></script>
+</html>

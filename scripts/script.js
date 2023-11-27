@@ -15,7 +15,7 @@ function HideVisibility() {
 
 editButton.addEventListener("click", ChangeVisibility);
 exitButton.addEventListener('click', HideVisibility);
-
+saveButton.addEventListener('click', HideVisibility);
 
 
 // Edit Profile

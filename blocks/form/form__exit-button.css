@@ -3,11 +3,11 @@
   height: 26px;
   margin: 0;
   padding: 0;
-  background-image: url(../../../images/closeform_icon.svg);
+  background-image: url(../../images/closeform_icon.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   border: none;
   cursor: pointer;
   position: absolute;
@@ -16,7 +16,7 @@
 }
 
 .form__exit-button:hover {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 @media screen and (min-width: 720px) {

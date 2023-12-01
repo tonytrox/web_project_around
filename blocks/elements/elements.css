@@ -1,12 +1,12 @@
 .elements {
-  width: 282px;
+  max-width: 880px;
   padding-top: 50px;
   margin: 0 auto;
 }
 
 @media screen and (min-width: 768px) {
   .elements {
-    width: 880px; 
+    /* width: 880px;  */
     padding-top: 50px;
   }
 }

@@ -1,16 +1,16 @@
-// open/close form
+// abrir y cerrar el Modal
 
-const formElement = document.querySelector(".form");
+const formElement = document.querySelector(".popup");
 const editButton = document.querySelector(".profile__edit-button");
 const exitButton = document.querySelector(".form__exit-button");
 const saveButton = document.querySelector(".form__save-button");
 
 function ChangeVisibility() {
-  formElement.classList.toggle('form_view');
+  formElement.classList.toggle("popup_view");
 }
 
 function HideVisibility() {
-  formElement.classList.remove('form_view');
+  formElement.classList.remove("popup_view");
 }
 
 editButton.addEventListener("click", ChangeVisibility);
@@ -18,15 +18,12 @@ exitButton.addEventListener('click', HideVisibility);
 saveButton.addEventListener('click', HideVisibility);
 
 
-// Edit Profile
+// Editar el perfil
 
 let profileName = document.querySelector(".profile__title");
 let profileJob = document.querySelector(".profile__description");
 let nameInput = document.querySelector(".form__name");
 let jobInput = document.querySelector(".form__description");
-
-nameInput.placeholder = profileName.textContent;
-jobInput.placeholder = profileJob.textContent;
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();

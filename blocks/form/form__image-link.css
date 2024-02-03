@@ -1,0 +1,12 @@
+.form__image-link {
+  height: 27px;
+  margin-top: 30px;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+  border-bottom: 1px solid black;
+  box-sizing: border-box;
+  opacity: 0.2;
+}

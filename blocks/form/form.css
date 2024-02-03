@@ -10,3 +10,13 @@
     padding: 34px 36px 36px 36px;
   }
 }
+
+
+
+#form_add-element {
+  display: none;
+}
+
+#form_edit-profile {
+  display: none;
+}

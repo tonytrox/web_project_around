@@ -10,7 +10,7 @@
 @import url("../blocks/profile/profile__title.css");
 @import url("../blocks/profile/profile__description.css");
 @import url("../blocks/profile/profile__edit-button.css");
-@import url("../blocks/profile/profile__add.css");
+@import url("../blocks/profile/profile__add-button.css");
 
 @import url("../blocks/elements/elements.css");
 @import url("../blocks/elements/element__list.css");
@@ -29,6 +29,8 @@
 @import url("../blocks/form/form__description.css");
 @import url("../blocks/form/form__save-button.css");
 @import url("../blocks/form/form__exit-button.css");
+@import url("../blocks/form/form__place.css");
+@import url("../blocks/form/form__image-link.css");
 
 @import url("../blocks/popup/popup.css");
 @import url("../blocks/popup/popup__container.css");

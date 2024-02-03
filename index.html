@@ -19,7 +19,7 @@
         <h2 class="profile__description">Explorer</h2>
         <button class="profile__edit-button"></button>
       </div>
-      <button class="profile__add"></button>
+      <button class="profile__add-button"></button>
     </section>
     <section class="elements">
       <ul class="element__list">
@@ -85,50 +85,46 @@
 
   <div class="popup">
     <div class="popup__container">
-      <form class="form">
+      <form class="form" id="form_edit-profile">
         <button class="form__exit-button"></button>
-        <h2 class="form__title">Edit profile</h2>
+        <h2 class="form__title">Editar perfil</h2>
         <input
               class="form__name"
               type="text"
               name="name"
-              placeholder="Name"
+              placeholder="Nombre"
               required
             />
         <input
               class="form__description"
               type="text"
               name="description"
-              placeholder="Description"
+              placeholder="Descripción"
               required
             />
-        <div class=form__save-button>Save</div>
+        <div class=form__save-button>Guardar</div>
+      </form>           
+      <form class="form" id="form_add-element">
+        <button class="form__exit-button"></button>
+        <h2 class="form__title">Nuevo lugar</h2>
+        <input
+              class="form__place"
+              type="text"
+              name="place"
+              placeholder="Título"
+              
+            />
+        <input
+              class="form__image-link"
+              type="url"
+              name="image-link"
+              placeholder="Enlace de la imagen"
+              
+            />
+        <div class=form__save-button>Crear</div>
       </form>
     </div>
   </div>
-
-  <!-- <div class="form">
-    
-    <div class="form__container">
-      <button class="form__exit-button"></button>
-      <h2 class="form__title">Edit profile</h2>
-      <input
-            class="form__name"
-            type="text"
-            name="name"
-            placeholder="Name"
-            required
-          />
-      <input
-            class="form__description"
-            type="text"
-            name="description"
-            placeholder="Description"
-            required
-          />
-      <div class=form__save-button>Save</div>
-    </div>
-  </div> -->
 
 </body>
 <script src="scripts/script.js"></script>

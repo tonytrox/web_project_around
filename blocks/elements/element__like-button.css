@@ -4,6 +4,8 @@
   width: 21px;
   border: none;
   cursor: pointer;
+  /* background-size: cover; */
+  /* background-color: tomato; */
 }
 
 .element__like-button:hover {

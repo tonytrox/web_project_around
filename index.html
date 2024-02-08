@@ -23,7 +23,7 @@
     </section>
     <section class="elements">
       <ul class="element__list">
-        <li>
+        <!-- <li>
           <div class="element__container">
             <img class="element__img" src="images/Yosemite_Valley.jpeg" alt="Yosemite Valley" />
             <div class="element__description">
@@ -73,7 +73,7 @@
             <h2 class="element__text">Lago di Braies</h2>
             <button class="element__like-button"></button></div>
           </div>
-        </li>
+        </li> -->
       </ul>
     </section>
   </main>
@@ -102,7 +102,7 @@
               placeholder="Descripción"
               required
             />
-        <div class=form__save-button>Guardar</div>
+        <div class=form__save-button id="save_profile">Guardar</div>
       </form>           
       <form class="form" id="form_add-element">
         <button class="form__exit-button"></button>
@@ -121,11 +121,22 @@
               placeholder="Enlace de la imagen"
               
             />
-        <div class=form__save-button>Crear</div>
+        <div class=form__save-button id="save_place">Crear</div>
       </form>
     </div>
   </div>
 
+
+  <!-- -- MODAL IMAGE -- -->
+  
+ <template id="popup_1">
+    <div class="popup__container_1">
+      <button class="form__exit-button_" id="form__exit-button"></button>
+      <img class="element__img element__img_popup" id="image_popup" src="" alt="" />
+      <h3 class="element__text_popup"></h3>
+    </div>
+  </template> 
+  
 </body>
 <script src="scripts/script.js"></script>
 </html>

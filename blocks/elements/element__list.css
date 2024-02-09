@@ -1,4 +1,4 @@
-.element__list {
+.elements__list {
   /* max-width: 880px ; */
   list-style: none;
   display: grid;
@@ -11,13 +11,13 @@
 }
 
 @media screen and (min-width: 768px) {
-  .element__list {
+  .elements__list {
     grid-template-columns: repeat(2, auto);
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .element__list {
+  .elements__list {
     grid-template-columns: repeat(3, auto);
   }
 }

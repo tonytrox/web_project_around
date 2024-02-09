@@ -98,7 +98,7 @@ function createCard() {
 
 initialCards.forEach(function (card) {
   
-  const containerCard = document.querySelector(".element__list");
+  const containerCard = document.querySelector(".elements__list");
   const listElement = document.createElement("li");
   
   const elementContainer = document.createElement("div");
@@ -164,7 +164,7 @@ saveButtonPlace.addEventListener("click", handlePlaceFormSubmit);
 // Abrir popup de la imagen // DESARROLLO
 
 const popupTemplate = document.querySelector("#popup_template");
-const containerCard = document.querySelector(".element__list");
+const containerCard = document.querySelector(".elements__list");
 
 containerCard.addEventListener("click", function (event) {
   const imageElement = event.target;

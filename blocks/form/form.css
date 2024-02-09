@@ -11,12 +11,14 @@
   }
 }
 
+/* formulario de creacion de perfiles */
 
-
-#form_add-element {
+#form_edit-profile {
   display: none;
 }
 
-#form_edit-profile {
+/* formulario de creacion de elementos */
+
+#form_add-element {
   display: none;
 }

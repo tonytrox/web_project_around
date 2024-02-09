@@ -7,7 +7,7 @@
   background-color: #FFF;
 }
 
-.popup__container_1 {
+.popup__container_image {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -17,7 +17,6 @@
 
 }
 
-.popup__container_1_remove {
-display: none;
-
+.popup__container_image_remove {
+  display: none;
 }

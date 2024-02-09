@@ -26,23 +26,3 @@
     left: calc(100% + 0px);
   }
 }
-
-#form__exit-button {
-  width: 40px;
-  height: 40px;
-  margin: 0;
-  padding: 0;
-  background-image: url(../../images/closeform_icon.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-
-  bottom: calc(100% + 0px);
-  left: calc(100% + 0px);
-
-  /* bottom: calc(100% + 13px);
-  right: 0; */
-}

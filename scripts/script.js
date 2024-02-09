@@ -12,6 +12,8 @@ const saveButtonProfile = document.querySelector("#save_profile");
 const formAddElement = document.querySelector("#form_add-element");
 const formEditProfile = document.querySelector("#form_edit-profile");
 
+console.log("TEST");
+console.log(formAddElement);
 
 function ChangeVisibility() {
   popupElement.classList.toggle("popup_opened");
@@ -171,11 +173,11 @@ containerCard.addEventListener("click", function (event) {
     
     const popupTemplateCopy = popupTemplate.content.cloneNode(true);
 
-    const popupPopup = popupTemplateCopy.querySelector(".popup_1");
+    const popupPopup = popupTemplateCopy.querySelector(".popup_image");
     const imagePopup = popupTemplateCopy.querySelector("#image_popup");
     const textPopup = popupTemplateCopy.querySelector(".element__text_popup");
     const closeButton = popupTemplateCopy.querySelector("#form__exit-button");
-    const imagePopupContainer = popupTemplateCopy.querySelector(".popup__container_1");
+    const imagePopupContainer = popupTemplateCopy.querySelector(".popup__container_image");
 
     imagePopup.src = imageElement.src;
     textPopup.textContent = imageElement.alt;
@@ -184,8 +186,8 @@ containerCard.addEventListener("click", function (event) {
 
     closeButton.addEventListener('click', function () {
       
-      popupPopup.classList.toggle("popup_1_remove");
-      imagePopupContainer.classList.add("popup__container_1_remove");
+      popupPopup.classList.toggle("popup_image_remove");
+      imagePopupContainer.classList.add("popup__container_image_remove");
 
     })
 

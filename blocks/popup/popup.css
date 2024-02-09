@@ -14,7 +14,7 @@
   display: flex;
 }
 
-.popup_1 {
+.popup_image {
   position: fixed;
   top: 0;
   left: 0;
@@ -25,6 +25,6 @@
   /* crea una capa semitransparente que cubre toda la pantalla */
 }
 
-.popup_1_remove {
+.popup_image_remove {
   display: none;
 }

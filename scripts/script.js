@@ -152,58 +152,47 @@ function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
   placeName.textContent = placeInput.value;
   placeImage.src = imageInput.value;
+
+
 }
-
+saveButtonPlace.addEventListener('click', HideVisibility);
 saveButtonPlace.addEventListener("click", handlePlaceFormSubmit);
-
-
-
-
 
 
 // Abrir popup de la imagen // DESARROLLO
 
-const imageZoomPopupTemplate = document.querySelector("#popup_1");
+const popupTemplate = document.querySelector("#popup_template");
 const containerCard = document.querySelector(".element__list");
-let imageZoomPopupCopy = null;
-
 
 containerCard.addEventListener("click", function (event) {
   const imageElement = event.target;
 
   if (imageElement.classList.contains("element__img")) {
     
-    const imageZoomPopupCopy = imageZoomPopupTemplate.content.cloneNode(true);
-    const imagePopup = imageZoomPopupCopy.querySelector("#image_popup");
-    const textPopup = imageZoomPopupCopy.querySelector(".element__text_popup"); 
+    const popupTemplateCopy = popupTemplate.content.cloneNode(true);
 
-    const closeButton = imageZoomPopupCopy.querySelector("#form__exit-button"); 
+    const popupPopup = popupTemplateCopy.querySelector(".popup_1");
+    const imagePopup = popupTemplateCopy.querySelector("#image_popup");
+    const textPopup = popupTemplateCopy.querySelector(".element__text_popup");
+    const closeButton = popupTemplateCopy.querySelector("#form__exit-button");
+    const imagePopupContainer = popupTemplateCopy.querySelector(".popup__container_1");
 
-    textPopup.textContent = imageElement.alt;
     imagePopup.src = imageElement.src;
-    
-    imageZoomPopupTemplate.style.display = "flex";     // popup (fondo)
-    
-    document.body.append(imageZoomPopupCopy);
-    
+    textPopup.textContent = imageElement.alt;
+
+    console.log(popupPopup);
+
     closeButton.addEventListener('click', function () {
-      imageZoomPopupTemplate.style.display = "none";
-      document.body.remove(imageZoomPopupCopy);
-    });
-    
+      
+      popupPopup.classList.toggle("popup_1_remove");
+      imagePopupContainer.classList.add("popup__container_1_remove");
+
+    })
+
+    document.body.append(popupTemplateCopy);
 
   }
-  
 
 });
-
-/* 
-  <template id="popup_1">
-    <div class="popup__container_1">
-      <button class="form__exit-button_" id="form__exit-button">EXIT</button>
-      <img class="element__img element__img_popup" id="image_popup" src="" alt="" />
-      <h3 class="element__text_popup"></h3>
-    </div>
-  </template> */
 
 

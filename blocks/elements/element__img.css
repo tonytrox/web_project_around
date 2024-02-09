@@ -3,6 +3,7 @@
   height: 282px;
   border-radius: 15px 15px 0 0;
   cursor: pointer;
+  background-color: gray;
 }
 
 .element__img_popup {

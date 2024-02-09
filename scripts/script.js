@@ -12,9 +12,6 @@ const saveButtonProfile = document.querySelector("#save_profile");
 const formAddElement = document.querySelector("#form_add-element");
 const formEditProfile = document.querySelector("#form_edit-profile");
 
-console.log("TEST");
-console.log(formAddElement);
-
 function ChangeVisibility() {
   popupElement.classList.toggle("popup_opened");
 }
@@ -56,16 +53,14 @@ function handleProfileFormSubmit(evt) {
   profileJob.textContent = jobInput.value;
 }
 
+nameInput.value = profileName.textContent;
+jobInput.value = profileJob.textContent;
+
 saveButtonProfile.addEventListener("click", handleProfileFormSubmit);
 
 
 
-
-
-
-
 // Contenedor de las tarjetas
-
 function createCard() {
   
   const initialCards = [
@@ -154,47 +149,81 @@ function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
   placeName.textContent = placeInput.value;
   placeImage.src = imageInput.value;
-
-
+  placeImage.alt = placeInput.value;
 }
+
 saveButtonPlace.addEventListener('click', HideVisibility);
 saveButtonPlace.addEventListener("click", handlePlaceFormSubmit);
 
 
-// Abrir popup de la imagen // DESARROLLO
+// Abrir popup de la imagen
 
 const popupTemplate = document.querySelector("#popup_template");
 const containerCard = document.querySelector(".elements__list");
 
+// inicializar el popup como null (vacio)
+let actualPopupAbierto = null;
+
+
+
 containerCard.addEventListener("click", function (event) {
   const imageElement = event.target;
 
+  // si hay un popup abierto !null, se cierra el popup
+  if (actualPopupAbierto) {
+    closePopup(actualPopupAbierto);
+  }
+
+  // mediante template-clone creará un nuevo Popup,
+  // aplicará el evento solo si el elemento tiene una imagen (class: element__img)
+
   if (imageElement.classList.contains("element__img")) {
-    
-    const popupTemplateCopy = popupTemplate.content.cloneNode(true);
 
-    const popupPopup = popupTemplateCopy.querySelector(".popup_image");
-    const imagePopup = popupTemplateCopy.querySelector("#image_popup");
-    const textPopup = popupTemplateCopy.querySelector(".element__text_popup");
-    const closeButton = popupTemplateCopy.querySelector("#form__exit-button");
-    const imagePopupContainer = popupTemplateCopy.querySelector(".popup__container_image");
+  const popupTemplateCopy = popupTemplate.content.cloneNode(true);
 
-    imagePopup.src = imageElement.src;
-    textPopup.textContent = imageElement.alt;
+  const popupPopup = popupTemplateCopy.querySelector(".popup_image");
+  const imagePopup = popupTemplateCopy.querySelector("#image_popup");
+  const textPopup = popupTemplateCopy.querySelector(".element__text_popup");
+  const closeButton = popupTemplateCopy.querySelector("#form__exit-button");
+  const imagePopupContainer = popupTemplateCopy.querySelector(".popup__container_image");
 
-    console.log(popupPopup);
+  imagePopup.src = imageElement.src;
+  textPopup.textContent = imageElement.alt;
+  
+  closeButton.addEventListener('click', function () {
+    closePopup(popupPopup);
+  });
+  
+  document.body.append(popupTemplateCopy);
 
-    closeButton.addEventListener('click', function () {
-      
-      popupPopup.classList.toggle("popup_image_remove");
-      imagePopupContainer.classList.add("popup__container_image_remove");
-
-    })
-
-    document.body.append(popupTemplateCopy);
+  // se define al popup como abierto
+  actualPopupAbierto = popupPopup;
 
   }
 
 });
 
+// funcion ClosePopup
+function closePopup(popup) {
+  popup.classList.add("popup_image_remove");
+  const imagePopupContainer = document.querySelector(".popup__container_image");
+  imagePopupContainer.classList.add("popup__container_image_remove");
 
+  // Elimina la referencia del popup abierto a null (vacio)
+  actualPopupAbierto = null;
+}
+
+// Cerrar Popup con la tecla ESC
+function closePopupKeyEscape(event) {
+  if (event.key === "Escape") {
+    
+    formEditProfile.style.display = "none";
+    formAddElement.style.display = "none";
+    HideVisibility();
+
+    closePopup(actualPopupAbierto);
+  }
+}
+
+// Agregar un escuchador de eventos para la tecla 'Escape'
+document.addEventListener("keydown", closePopupKeyEscape);

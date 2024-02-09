@@ -1,10 +1,14 @@
-En este proyecto se intenta alcanzar la experincia con respecto a objetos de ingreso (input).
+# Sprint 6
 
- Para este trabajo se usó las funcionalidades de Flex y Grid, Responsive.
+### Características:
 
- Mediante JavaScript, active la visibilidad del formulario, como el input del nombre y descripción.
+- Compatible con acentos y símbolos en español `<meta charset="UTF-8">`
+- Diseño basado en el documento de Figma adjunto en el proyecto ***Around US***.
+- Se hace uso de HTML y CSS (Front End)
+- JScript complementa la funcionalidad dinámica de los formularios e imágenes, activando y desactivando las vistas.
 
- Con respecto a las instrucción de JavaScript, se iran otorgando eventos...
- Lo adjunto el proyecto para su evalución y feedback.
+**Los cambios y funcionalidades del proyecto se iran añadiendo progresivamente, siguiendo las indicaciones de los siguientes módulos.**
 
-##### Click para visualizar el desarrollo [Link](https://tonytrox.github.io/web_project_around/) 
+##### Hacer clic en el [enlace](https://tonytrox.github.io/web_project_around/), para visualizar el proceso
+
+- [Enlace de referencia / Figma](https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_6/id/Web_Brief_Sprint_6_ES.fig)

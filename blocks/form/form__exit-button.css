@@ -10,8 +10,8 @@
   border: none;
   cursor: pointer;
   position: absolute;
-  /* bottom: calc(100% + 13px);
-  right: 0; */
+  bottom: calc(100% + 13px);
+  right: 0;
 }
 
 .form__exit-button:hover {

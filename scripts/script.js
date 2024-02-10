@@ -60,18 +60,17 @@ saveButtonProfile.addEventListener("click", handleProfileFormSubmit);
 
 
 
-// Contenedor de las tarjetas
-function createCard() {
-  
-  const initialCards = [
+// Contenedor de elementos
+
+const initialCards = [
   {
-      place: "Valle de Yosemite",
-      link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg"
-    },
-    {
-      place: "Lago Louise",
-      link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg"
-    },
+    place: "Valle de Yosemite",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg"
+  },
+  {
+    place: "Lago Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg"
+  },
   {
     place: "Montañas Calvas",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg"
@@ -90,12 +89,13 @@ function createCard() {
   }
 ];
 
+// Creación de un elemento
 
-initialCards.forEach(function (card) {
+const containerCard = document.querySelector(".elements__list");
+
+function createCard(card){
   
-  const containerCard = document.querySelector(".elements__list");
-  const listElement = document.createElement("li");
-  
+  const Element = document.createElement("li");
   const elementContainer = document.createElement("div");
   elementContainer.classList.add("element__container");
   
@@ -110,61 +110,69 @@ initialCards.forEach(function (card) {
   const elementText = document.createElement("h2");
   elementText.classList.add("element__text");
   elementText.textContent = card.place;
-
+  
   const likeButton = document.createElement("button");
   likeButton.classList.add("element__like-button");
   likeButton.addEventListener("click", function () {
     likeButton.classList.toggle("element__like-button_active");
   } );
-
+  
   const deleteButton = document.createElement("button");
   deleteButton.classList.add("element__remove-button");
   deleteButton.addEventListener("click", function () {
-    listElement.remove();
+    Element.remove();
   } );
-
-  containerCard.append(listElement);
-  listElement.append(elementContainer);
+  
+  containerCard.prepend(Element);
+  Element.append(elementContainer);
   elementContainer.append(elementImage, elementDescription);
   elementDescription.append(elementText);
   elementDescription.append(likeButton);
   elementDescription.append(deleteButton);
   
-});
+}
 
-};
+function inicializarInitialCards(){
+  initialCards.forEach(function (card) {
+    createCard(card);
+  });
+}
 
-createCard();
+inicializarInitialCards();
 
-// Editar lugar
+console.log("test");
 
 const placeName = document.querySelector(".element__text");
 const placeImage = document.querySelector(".element__img");
-
-const placeInput = document.querySelector(".form__place");
-const imageInput = document.querySelector(".form__image-link");
 const saveButtonPlace = document.querySelector("#save_place");
 
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
-  placeName.textContent = placeInput.value;
-  placeImage.src = imageInput.value;
-  placeImage.alt = placeInput.value;
+  
+  const placeInput = document.querySelector(".form__place");
+  const imageInput = document.querySelector(".form__image-link");
+  
+  const card = {
+    place: placeInput.value,
+    link: imageInput.value,
+  };
+
+  createCard(card);
+
+  HideVisibility();
 }
 
-saveButtonPlace.addEventListener('click', HideVisibility);
 saveButtonPlace.addEventListener("click", handlePlaceFormSubmit);
+
+
 
 
 // Abrir popup de la imagen
 
 const popupTemplate = document.querySelector("#popup_template");
-const containerCard = document.querySelector(".elements__list");
 
 // inicializar el popup como null (vacio)
 let actualPopupAbierto = null;
-
-
 
 containerCard.addEventListener("click", function (event) {
   const imageElement = event.target;

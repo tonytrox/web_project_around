@@ -34,43 +34,57 @@
 
   <div class="popup">
     <div class="popup__container">
-      <form class="form" id="form_edit-profile">
+      <form class="form popup__form" id="form_edit-profile" novalidate>
         <button class="form__exit-button"></button>
         <h2 class="form__title">Editar perfil</h2>
         <input
-              class="form__name"
+              class="form__name popup__input"
+              id="form__name"
               type="text"
               name="name"
               placeholder="Nombre"
+              maxlength="40"
+              minlength="2"
               required
             />
+            <span class="popup__error form__name-error"></span>
         <input
-              class="form__description"
+              class="form__description popup__input"
+              id="form__description"
               type="text"
               name="description"
               placeholder="Descripción"
+              maxlength="200"
+              minlength="2"
               required
             />
-        <div class=form__save-button id="save_profile">Guardar</div>
+            <span class="popup__error form__description-error"></span>
+        <button class="popup__button form__save-button -orm__save-button_disable" id="save_profile">Guardar</button>
       </form>           
-      <form class="form" id="form_add-element">
+      <form class="form popup__form" id="form_add-element" novalidate>
         <button class="form__exit-button"></button>
         <h2 class="form__title">Nuevo lugar</h2>
         <input
-              class="form__place"
+              class="form__place popup__input"
+              id="form__place"
               type="text"
               name="place"
               placeholder="Título"
+              minlength="2"
+              maxlength="30"
               required
             />
+            <span class="popup__error form__place-error"></span>
         <input
-              class="form__image-link"
+              class="form__image-link popup__input"
+              id="form__image-link"
               type="url"
               name="image-link"
               placeholder="Enlace de la imagen"
               required
             />
-        <div class=form__save-button id="save_place">Crear</div>
+            <span class="popup__error form__image-link-error"></span>
+        <button class="popup__button form__save-button" id="save_place">Crear</button>
       </form>
     </div>
   </div>
@@ -78,11 +92,11 @@
 
   <!-- -- MODAL IMAGE -- -->
   
- <template id="popup_template">
-  <div class="popup_image">
-    <div class="popup__container_image">
+ <template id="popup__template">
+  <div class="popup__image">
+    <div class="popup__container-image">
       <button class="form__exit-button" id="form__exit-button"></button>
-      <img class="element__img element__img_popup" id="image_popup" src="#" alt="" />
+      <img class="element__img element__img_popup" id="popup__image" src="#" alt="" />
       <h3 class="element__text_popup"></h3>
     </div>
   </div>
@@ -90,4 +104,5 @@
   
 </body>
 <script src="scripts/script.js"></script>
+<script src="scripts/validate.js"></script>
 </html>

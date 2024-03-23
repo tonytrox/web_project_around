@@ -6,7 +6,7 @@ const formElement = document.querySelector(".form");
 const editButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
 
-const exitButton = document.querySelector(".form__exit-button");
+const exitButtons = document.querySelectorAll(".form__exit-button");
 const saveButtonProfile = document.querySelector("#save_profile");
 
 const formAddElement = document.querySelector("#form_add-element");
@@ -23,20 +23,25 @@ function HideVisibility() {
 // mediante el evento click, se activa la función ChangeVisibility
 // y se activa la función que cambia la visibilidad de los formularios
 
-exitButton.addEventListener('click', HideVisibility);
+// exitButton.addEventListener('click', HideVisibility);
+
+exitButtons.forEach((btn) => {
+  btn.addEventListener("click", HideVisibility);
+})
+
 saveButtonProfile.addEventListener('click', HideVisibility);
 
-editButton.addEventListener("click", ChangeVisibility);
 editButton.addEventListener("click", function () {
+  ChangeVisibility();
   formEditProfile.style.display = "flex";
   formAddElement.style.display = "none";
-})
+});
 
-addCardButton.addEventListener("click", ChangeVisibility);
 addCardButton.addEventListener("click", function () {
+  ChangeVisibility();
   formAddElement.style.display = "flex";
   formEditProfile.style.display = "none";
-})
+});
 
 
 
@@ -140,8 +145,6 @@ function inicializarInitialCards(){
 
 inicializarInitialCards();
 
-console.log("test");
-
 const placeName = document.querySelector(".element__text");
 const placeImage = document.querySelector(".element__img");
 const saveButtonPlace = document.querySelector("#save_place");
@@ -158,7 +161,6 @@ function handlePlaceFormSubmit(evt) {
   };
 
   createCard(card);
-
   HideVisibility();
 }
 
@@ -169,7 +171,7 @@ saveButtonPlace.addEventListener("click", handlePlaceFormSubmit);
 
 // Abrir popup de la imagen
 
-const popupTemplate = document.querySelector("#popup_template");
+const popupTemplate = document.querySelector("#popup__template");
 
 // inicializar el popup como null (vacio)
 let actualPopupAbierto = null;
@@ -189,11 +191,10 @@ containerCard.addEventListener("click", function (event) {
 
   const popupTemplateCopy = popupTemplate.content.cloneNode(true);
 
-  const popupPopup = popupTemplateCopy.querySelector(".popup_image");
-  const imagePopup = popupTemplateCopy.querySelector("#image_popup");
+  const popupPopup = popupTemplateCopy.querySelector(".popup__image");
+  const imagePopup = popupTemplateCopy.querySelector("#popup__image");
   const textPopup = popupTemplateCopy.querySelector(".element__text_popup");
   const closeButton = popupTemplateCopy.querySelector("#form__exit-button");
-  const imagePopupContainer = popupTemplateCopy.querySelector(".popup__container_image");
 
   imagePopup.src = imageElement.src;
   textPopup.textContent = imageElement.alt;
@@ -211,15 +212,19 @@ containerCard.addEventListener("click", function (event) {
 
 });
 
+
+
 // funcion ClosePopup
 function closePopup(popup) {
   popup.classList.add("popup_image_remove");
-  const imagePopupContainer = document.querySelector(".popup__container_image");
+  const imagePopupContainer = document.querySelector(".popup__container-image");
   imagePopupContainer.classList.add("popup__container_image_remove");
 
   // Elimina la referencia del popup abierto a null (vacio)
   actualPopupAbierto = null;
 }
+
+
 
 // Cerrar Popup con la tecla ESC
 function closePopupKeyEscape(event) {

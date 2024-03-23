@@ -1,29 +1,22 @@
-// abrir y cerrar el Modal
-
-const popupElement = document.querySelector(".popup");
+const popup = document.querySelector(".popup");
 const formElement = document.querySelector(".form");
-
 const editButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
-
 const exitButtons = document.querySelectorAll(".form__exit-button");
 const saveButtonProfile = document.querySelector("#save_profile");
-
 const formAddElement = document.querySelector("#form_add-element");
 const formEditProfile = document.querySelector("#form_edit-profile");
 
 function ChangeVisibility() {
-  popupElement.classList.toggle("popup_opened");
+  popup.classList.toggle("popup_opened");
 }
 
 function HideVisibility() {
-  popupElement.classList.remove("popup_opened");
+  popup.classList.remove("popup_opened");
 }
 
 // mediante el evento click, se activa la función ChangeVisibility
 // y se activa la función que cambia la visibilidad de los formularios
-
-// exitButton.addEventListener('click', HideVisibility);
 
 exitButtons.forEach((btn) => {
   btn.addEventListener("click", HideVisibility);
@@ -145,6 +138,8 @@ function inicializarInitialCards(){
 
 inicializarInitialCards();
 
+// Crear Cards
+
 const placeName = document.querySelector(".element__text");
 const placeImage = document.querySelector(".element__img");
 const saveButtonPlace = document.querySelector("#save_place");
@@ -216,6 +211,7 @@ containerCard.addEventListener("click", function (event) {
 
 // funcion ClosePopup
 function closePopup(popup) {
+  // console.log(popup); // NULL
   popup.classList.add("popup_image_remove");
   const imagePopupContainer = document.querySelector(".popup__container-image");
   imagePopupContainer.classList.add("popup__container_image_remove");
@@ -230,9 +226,11 @@ function closePopup(popup) {
 function closePopupKeyEscape(event) {
   if (event.key === "Escape") {
     
+    HideVisibility();
     formEditProfile.style.display = "none";
     formAddElement.style.display = "none";
-    HideVisibility();
+
+    // console.log(actualPopupAbierto); // NULL
 
     closePopup(actualPopupAbierto);
   }

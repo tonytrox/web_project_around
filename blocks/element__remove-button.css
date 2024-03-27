@@ -1,5 +1,5 @@
 .element__remove-button {
-  background: url(../../images/trash_icon.svg) center no-repeat;
+  background: url(../images/trash_icon.svg) center no-repeat;
   min-height: 19px;
   min-width: 18px;
   border: none;

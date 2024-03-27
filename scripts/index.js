@@ -6,29 +6,29 @@ const exitButtons = document.querySelectorAll(".form__exit-button");
 const formAddElement = document.querySelector("#form_add-element");
 const formEditProfile = document.querySelector("#form_edit-profile");
 
-function ChangeVisibility() {
+function changeVisibility() {
   popup.classList.toggle("popup_opened");
 };
 
-function HideVisibility() {
+function hideVisibility() {
   popup.classList.remove("popup_opened");
 };
 
 // selecciona ambos "form__exit-button" y añade el evento:
 exitButtons.forEach((btn) => {
-  btn.addEventListener("click", HideVisibility);
+  btn.addEventListener("click", hideVisibility);
 })
 
 // Abre el formulario -> Edit Profile:
 editButton.addEventListener("click", function () {
-  ChangeVisibility();
+  changeVisibility();
   formEditProfile.style.display = "flex";
   formAddElement.style.display = "none";
 });
 
 // Abre el formulario -> Add Card:
 addCardButton.addEventListener("click", function () {
-  ChangeVisibility();
+  changeVisibility();
   formAddElement.style.display = "flex";
   formEditProfile.style.display = "none";
 });
@@ -37,7 +37,7 @@ addCardButton.addEventListener("click", function () {
 function closePopupKeyEscape(event) {
   if (event.key === "Escape") {
     
-    HideVisibility();
+    hideVisibility();
     formEditProfile.style.display = "none";
     formAddElement.style.display = "none";
 
@@ -54,6 +54,6 @@ document.addEventListener("keydown", closePopupKeyEscape);
 // al detectar que el target apunta fuera del formulario (capa semitransparente/popup).
 popup.addEventListener("click", function(evt){
   if(evt.target === popup){
-    HideVisibility();
+    hideVisibility();
   };
 });

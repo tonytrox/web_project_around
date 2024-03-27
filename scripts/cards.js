@@ -98,7 +98,7 @@ function handlePlaceFormSubmit(evt) {
 // Añade la tarjeta y cierra el formulario al presionar "CREAR"
 function handleSaveButtonPlace(evt){
   handlePlaceFormSubmit(evt);
-  HideVisibility();
+  hideVisibility();
 };
 
 saveButtonPlace.addEventListener("click", handleSaveButtonPlace);
@@ -133,6 +133,7 @@ containerCard.addEventListener("click", function (evt) {
   // obtendra la imagen y el nombre de las variables.
 
   imagePopup.src = imageElement.src;
+  imagePopup.alt = imageElement.alt;
   textPopup.textContent = imageElement.alt;
   
 
@@ -158,5 +159,7 @@ containerCard.addEventListener("click", function (evt) {
 
 // función cerrar popup:
 function closePopup(event) {
-  event.classList.add("popup_image_remove");
-}
+  if (event) {
+    event.classList.add("popup_image_remove");  
+  }
+};

@@ -24,7 +24,7 @@ jobInput.value = profileJob.textContent;
 // El botón guarda los datos y cierra el popup
 function handleSaveButtonProfile(evt) {
   handleProfileFormSubmit(evt);
-  HideVisibility();
+  hideVisibility();
 };
 
 saveButtonProfile.addEventListener("click", handleSaveButtonProfile);

@@ -9,11 +9,11 @@
 </head>
 <body>
   <header class="header">
-    <img class="header__logo" src="images/logo_aroundus.svg" alt="logo around the world USA" />
+    <img class="header__logo" src="images/logo_aroundus.svg" alt="logo around the world USA">
   </header>
   <main class="content">
     <section class="profile">
-      <img class="profile__image" src="images/jacques.png" alt="profile avatar"/>
+      <img class="profile__image" src="images/jacques.png" alt="profile avatar">
       <div class="profile__info">
         <h1 class="profile__title">Jacques Cousteau</h1>
         <h2 class="profile__description">Explorer</h2>
@@ -30,7 +30,7 @@
     <p class="footer__copyright">&copy; 2023 Around The U.S.</p>
   </footer>
 
-  <!---- FORMS ---->
+  <!-- FORMS -->
 
   <div class="popup">
     <div class="popup__container">
@@ -46,7 +46,7 @@
               maxlength="40"
               minlength="2"
               required
-            />
+            >
             <span class="popup__error form__name-error"></span>
         <input
               class="form__description popup__input"
@@ -57,7 +57,7 @@
               maxlength="200"
               minlength="2"
               required
-            />
+            >
             <span class="popup__error form__description-error"></span>
         <button class="popup__button form__save-button" id="save_profile">Guardar</button>
       </form>           
@@ -73,7 +73,7 @@
               minlength="2"
               maxlength="30"
               required
-            />
+            >
             <span class="popup__error form__place-error"></span>
         <input
               class="form__image-link popup__input"
@@ -82,7 +82,7 @@
               name="image-link"
               placeholder="Enlace de la imagen"
               required
-            />
+            >
             <span class="popup__error form__image-link-error"></span>
         <button class="popup__button form__save-button" id="save_place">Crear</button>
       </form>
@@ -90,20 +90,20 @@
   </div>
 
 
-  <!---- POPUP IMAGE ---->
+  <!-- POPUP IMAGE -->
   
  <template id="popup__template">
   <div class="popup__image">
     <div class="popup__container-image">
       <button class="form__exit-button" id="form__exit-button"></button>
-      <img class="element__img element__img_popup" id="popup__image" src="#" alt="" />
+      <img class="element__img element__img_popup" id="popup__image" src="#" alt="">
       <h3 class="element__text_popup"></h3>
     </div>
   </div>
 </template> 
   
 </body>
-<script src="scripts/script.js"></script>
+<script src="scripts/index.js"></script>
 <script src="scripts/profile.js"></script>
 <script src="scripts/cards.js"></script>
 <script src="scripts/validate.js"></script>

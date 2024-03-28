@@ -43,7 +43,7 @@
 }
 
 .element__like-button {
-  background: url(/images/heart_icon.svg) center no-repeat;
+  background: url(../images/heart_icon.svg) center no-repeat;
   min-height: 19px;
   min-width: 21px;
   border: none;

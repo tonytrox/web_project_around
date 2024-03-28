@@ -26,14 +26,10 @@ const initialCards = [
 ];
 
 // Crea los elementos de las tarjetas
-// Selecciona el contenedor de las imagenes
-
-const containerCard = document.querySelector(".elements__list");
-
 
 function createCard(card){
   
-  const Element = document.createElement("li");
+  const elementCard = document.createElement("li");
   const elementContainer = document.createElement("div");
   elementContainer.classList.add("element__container");
   
@@ -58,12 +54,13 @@ function createCard(card){
   const deleteButton = document.createElement("button");
   deleteButton.classList.add("element__remove-button");
   deleteButton.addEventListener("click", function () {
-    Element.remove();
+    elementCard.remove();
   } );
   
   // añade el Elemento creado al inicio del contenedor de imagenes.
-  containerCard.prepend(Element);
-  Element.append(elementContainer);
+  containerCard.prepend(elementCard); // Variable declarado en index.js
+
+  elementCard.append(elementContainer);
   elementContainer.append(elementImage, elementDescription);
   elementDescription.append(elementText);
   elementDescription.append(likeButton);
@@ -102,64 +99,3 @@ function handleSaveButtonPlace(evt){
 };
 
 saveButtonPlace.addEventListener("click", handleSaveButtonPlace);
-
-
-
-///////-- CREACION EL POPUP IMAGEN --////////
-
-// se declara la variable que conecta con la etiqueta <Template> Origen.
-const popupTemplate = document.querySelector("#popup__template");
-
-// inicializar el popup como null (vacio)
-let imagePopupOpen = null;
-
-containerCard.addEventListener("click", function (evt) {
-  const imageElement = evt.target;
-
-  // se ejecutar el IF si la variable contiene la clase .element__img
-
-  if (imageElement.classList.contains("element__img")) {
-
-  // crea el template/clone con sus elementos hijos.
-  // se declaran las variables  
-
-  const popupTemplateCopy = popupTemplate.content.cloneNode(true);
-
-  const popupPopup = popupTemplateCopy.querySelector(".popup__image");
-  const imagePopup = popupTemplateCopy.querySelector("#popup__image");
-  const textPopup = popupTemplateCopy.querySelector(".element__text_popup");
-  const closeButton = popupTemplateCopy.querySelector("#form__exit-button");
-
-  // obtendra la imagen y el nombre de las variables.
-
-  imagePopup.src = imageElement.src;
-  imagePopup.alt = imageElement.alt;
-  textPopup.textContent = imageElement.alt;
-  
-
-  // lo añade al final del body (popup)
-  document.body.append(popupTemplateCopy);
-
-  // Se asigna el popup abierto a la variable de comprobación, que inicio como null.
-  imagePopupOpen = popupPopup;
-  
-  closeButton.addEventListener('click', function () {
-    closePopup(imagePopupOpen);
-  });
-
-  popupPopup.addEventListener('click', function (evt) {
-    // se comprueba que no se este haciendo click sobre la imagen o el texto.
-    // si el click se realiza por fuera, se cierra el popup
-    if (evt.target !== imagePopup && evt.target !== textPopup) {
-      closePopup(imagePopupOpen);
-    };
-  });
-};
-});
-
-// función cerrar popup:
-function closePopup(event) {
-  if (event) {
-    event.classList.add("popup_image_remove");  
-  }
-};

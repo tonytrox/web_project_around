@@ -21,3 +21,15 @@
     padding-left: 0px;
   }
 }
+
+.header__logo {
+  width: 126px;
+  padding-left: 27px;
+}
+
+@media screen and (min-width: 768px) {
+  .header__logo {
+    width: 173px;
+    padding-left: 0px;
+  }
+}

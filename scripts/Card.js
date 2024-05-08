@@ -9,6 +9,7 @@ export class Card {
         const cardElement = document.querySelector(this._selector).content.querySelector(".element__card").cloneNode(true);
         cardElement.querySelector(".element__text").textContent = this._place;
         cardElement.querySelector(".element__img").src = this._link;
+        //cardElement.querySelector(".element__img").alt = this._place;
         return cardElement;   
     }
 

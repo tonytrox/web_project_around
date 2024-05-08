@@ -1,4 +1,4 @@
-# Sprint 7
+# Sprint 8
 
 ### Características:
 
@@ -6,6 +6,7 @@
 - Diseño basado en el documento de Figma adjunto en el proyecto ***Around US***.
 - Se hace uso de HTML y CSS (Front End)
 - JScript complementa la funcionalidad dinámica de los formularios e imágenes, activando y desactivando las vistas.
+- Refactorización del codigo JS (programación modular).
 
 **Los cambios y funcionalidades del proyecto se iran añadiendo progresivamente, siguiendo las indicaciones de los siguientes módulos.**
 

@@ -1,25 +1,14 @@
-const popup = document.querySelector(".popup");
-const formElement = document.querySelector(".form");
+import {FormValidator} from "./FormValidator.js";
+import {Card} from "./Card.js";
+import {popup} from "./utils.js"
+import {changeVisibility} from "./utils.js"
+import {hideVisibility} from "./utils.js"
+
 const editButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
 const exitButtons = document.querySelectorAll(".form__exit-button");
 const formAddElement = document.querySelector("#form_add-element");
 const formEditProfile = document.querySelector("#form_edit-profile");
-
-function changeVisibility() {
-  popup.classList.toggle("popup_opened");
-  if (popup.classList.contains("popup_opened")) {
-    // Si el popup se abre, añade el escuchador de eventos keydown
-    document.addEventListener("keydown", closePopupKeyEscape);
-  } else {
-    // Si el popup se cierra, elimine el escuchador de eventos keydown
-    document.removeEventListener("keydown", closePopupKeyEscape);
-  }
-};
-
-function hideVisibility() {
-  popup.classList.remove("popup_opened");
-};
 
 // selecciona ambos "form__exit-button" y añade el evento:
 exitButtons.forEach((btn) => {
@@ -41,7 +30,7 @@ addCardButton.addEventListener("click", function () {
 });
 
 // Cerrar Popup con la tecla ESC
-function closePopupKeyEscape(event) {
+export function closePopupKeyEscape(event) {
   if (event.key === "Escape") {
     
     hideVisibility();
@@ -72,7 +61,7 @@ popup.addEventListener("click", function(evt){
 // CREACION EL POPUP IMAGEN
 
 // se declara la variable que conecta con la etiqueta <Template> Origen.
-const popupTemplate = document.querySelector("#popup__template");
+const popupTemplate = document.querySelector("#popup-template");
 const containerCard = document.querySelector(".elements__list");
 
 // inicializar el popup como null (vacio)
@@ -131,3 +120,119 @@ function closePopup(event) {
     event.classList.add("popup_image_remove");
   }
 };
+
+// POPUP PROFILE
+
+const saveButtonProfile = document.querySelector("#save_profile");
+
+// Seleccionar los campos: Profile Info
+let profileName = document.querySelector(".profile__title");
+let profileJob = document.querySelector(".profile__description");
+
+// Recibir los valores del formulario:
+let nameInput = document.querySelector(".form__name");
+let jobInput = document.querySelector(".form__description");
+
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+}
+
+// Muestra los valores en los campos "input" del formulario
+nameInput.value = profileName.textContent;
+jobInput.value = profileJob.textContent;
+
+// El botón guarda los datos y cierra el popup
+function handleSaveButtonProfile(evt) {
+  handleProfileFormSubmit(evt);
+  hideVisibility();
+};
+
+saveButtonProfile.addEventListener("click", handleSaveButtonProfile);
+
+
+// FORMVALIDATOR
+
+const settings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible"
+};
+
+const popupValidateAddElement = new FormValidator(formAddElement, settings);
+popupValidateAddElement.enableValidation();
+
+const popupValidateFormProfile = new FormValidator(formEditProfile, settings);
+popupValidateFormProfile.enableValidation();
+
+
+
+const initialCards = [
+  {
+    place: "Valle de Yosemite",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg"
+  },
+  {
+    place: "Lago Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg"
+  },
+  {
+    place: "Montañas Calvas",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg"
+  },
+  {
+    place: "Latemar",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg"
+  },
+  {
+    place: "Parque Nacional de la Vanoise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg"
+  },
+  {
+    place: "Lago di Braies",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg"
+  }
+];
+
+const cardsConteiner = document.querySelector(".elements__list");
+
+function addCards(place, link){
+  const cards = new Card (place, link, "#card-template");
+  const cardElement = cards.generateCard();
+  cardsConteiner.prepend(cardElement);
+}
+
+// inicializar initialCards
+
+initialCards.forEach((item) => {
+  addCards(item.place, item.link)
+});
+
+// boton Guardar Form Add Place
+const saveButtonPlace = document.querySelector("#save_place");
+
+// Añadir Card desde el formulario Add Place:
+function handlePlaceFormSubmit(evt) {
+  evt.preventDefault();
+  const placeInput = document.querySelector(".form__place");
+  const imageInput = document.querySelector(".form__image-link");
+  
+  const place = placeInput.value;
+  const link = imageInput.value;
+  
+  // Creación de Card mediante FormAddPlace
+  addCards(place, link);
+
+};
+   
+// Añade la tarjeta y cierra el formulario al presionar "CREAR"
+function handleSaveButtonPlace(evt){
+  handlePlaceFormSubmit(evt);
+  hideVisibility();
+};
+
+saveButtonPlace.addEventListener("click", handleSaveButtonPlace);

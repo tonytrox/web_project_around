@@ -1,5 +1,10 @@
 import {FormValidator} from "./FormValidator.js";
 import {Card} from "./Card.js";
+import {Section} from "./Section.js";
+import {Popup} from "./Popup.js";
+import {PopupWithForm} from "./PopupWithForm.js";
+
+
 import {popup} from "./utils.js"
 import {changeVisibility} from "./utils.js"
 import {hideVisibility} from "./utils.js"
@@ -10,38 +15,47 @@ const exitButtons = document.querySelectorAll(".form__exit-button");
 const formAddElement = document.querySelector("#form_add-element");
 const formEditProfile = document.querySelector("#form_edit-profile");
 
+
+
+
+
 // selecciona ambos "form__exit-button" y añade el evento:
-exitButtons.forEach((btn) => {
-  btn.addEventListener("click", hideVisibility);
-})
+// exitButtons.forEach((btn) => {
+//   btn.addEventListener("click", hideVisibility);
+// })
 
 // Abre el formulario -> Edit Profile:
-editButton.addEventListener("click", function () {
-  changeVisibility();
-  formEditProfile.style.display = "flex";
-  formAddElement.style.display = "none";
-});
+// editButton.addEventListener("click", function () {
+//   changeVisibility();
+//   formEditProfile.style.display = "flex";
+//   formAddElement.style.display = "none";
+// });
 
 // Abre el formulario -> Add Card:
-addCardButton.addEventListener("click", function () {
-  changeVisibility();
-  formAddElement.style.display = "flex";
-  formEditProfile.style.display = "none";
-});
+// addCardButton.addEventListener("click", function () {
+//   changeVisibility();
+//   formAddElement.style.display = "flex";
+//   formEditProfile.style.display = "none";
+// });
+
+
+
+
+
 
 // Cerrar Popup con la tecla ESC
-export function closePopupKeyEscape(event) {
-  if (event.key === "Escape") {
+// export function closePopupKeyEscape(event) {
+//   if (event.key === "Escape") {
     
-    hideVisibility();
-    formEditProfile.style.display = "none";
-    formAddElement.style.display = "none";
+//     hideVisibility();
+//     formEditProfile.style.display = "none";
+//     formAddElement.style.display = "none";
 
-    // cierra el popup-image de la imagen actual
-    closePopup(imagePopupOpen);
-    document.removeEventListener("keydown", closePopupKeyEscape);
-  };
-}
+//     // cierra el popup-image de la imagen actual
+//     closePopup(imagePopupOpen);
+//     document.removeEventListener("keydown", closePopupKeyEscape);
+//   };
+// }
 
 // Agregar un escuchador de eventos para la tecla 'Escape'
 function addClosePopupKeyEscapeListener() {
@@ -55,6 +69,10 @@ popup.addEventListener("click", function(evt){
     hideVisibility();
   };
 });
+
+
+
+
 
 
 
@@ -121,6 +139,10 @@ function closePopup(event) {
   }
 };
 
+
+
+
+
 // POPUP PROFILE
 
 const saveButtonProfile = document.querySelector("#save_profile");
@@ -152,6 +174,12 @@ function handleSaveButtonProfile(evt) {
 saveButtonProfile.addEventListener("click", handleSaveButtonProfile);
 
 
+
+
+
+
+
+
 // FORMVALIDATOR
 
 const settings = {
@@ -168,6 +196,11 @@ popupValidateAddElement.enableValidation();
 
 const popupValidateFormProfile = new FormValidator(formEditProfile, settings);
 popupValidateFormProfile.enableValidation();
+
+
+
+
+
 
 
 
@@ -198,19 +231,28 @@ const initialCards = [
   }
 ];
 
-const cardsConteiner = document.querySelector(".elements__list");
+// selecciona el contenedor
+const cardContainerSelector = document.querySelector(".elements__list");
 
-function addCards(place, link){
-  const cards = new Card (place, link, "#card-template");
-  const cardElement = cards.generateCard();
-  cardsConteiner.prepend(cardElement);
+// recibe los parametros y genera el elemento card (Card.js)
+function createCard(place, link){ 
+  const card = new Card (place, link, "#card-template");
+  return card.generateCard();
 }
+// renderiza los elementos en el contenedor (Section.js)
+const cardSection = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const cardElement = createCard(item.place, item.link);
+    cardSection.addItem(cardElement);
+  },
+}, cardContainerSelector);
 
-// inicializar initialCards
+cardSection.rendererElement();
 
-initialCards.forEach((item) => {
-  addCards(item.place, item.link)
-});
+
+
+
 
 // boton Guardar Form Add Place
 const saveButtonPlace = document.querySelector("#save_place");
@@ -236,3 +278,6 @@ function handleSaveButtonPlace(evt){
 };
 
 saveButtonPlace.addEventListener("click", handleSaveButtonPlace);
+
+
+const popupProfileUser = new PopupWithForm (()=>{},"selector")

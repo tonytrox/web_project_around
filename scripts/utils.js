@@ -1,4 +1,4 @@
-export const popup = document.querySelector(".popup");
+//export const popup = document.querySelector(".popup");
 import {closePopupKeyEscape} from "./index.js"
 
 export function changeVisibility() {

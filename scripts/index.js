@@ -3,87 +3,108 @@ import {Card} from "./Card.js";
 import {Section} from "./Section.js";
 import {Popup} from "./Popup.js";
 import {PopupWithForm} from "./PopupWithForm.js";
+import {UserInfo} from "./UserInfo.js";
 
+const settings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible"
+};
 
-import {popup} from "./utils.js"
-import {changeVisibility} from "./utils.js"
-import {hideVisibility} from "./utils.js"
+const initialCards = [
+  {
+    place: "Valle de Yosemite",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg"
+  },
+  {
+    place: "Lago Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg"
+  },
+  {
+    place: "Montañas Calvas",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg"
+  },
+  {
+    place: "Latemar",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg"
+  },
+  {
+    place: "Parque Nacional de la Vanoise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg"
+  },
+  {
+    place: "Lago di Braies",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg"
+  }
+];
 
 const editButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
 const exitButtons = document.querySelectorAll(".form__exit-button");
 const formAddElement = document.querySelector("#form_add-element");
 const formEditProfile = document.querySelector("#form_edit-profile");
-
-
-
-
-
-// selecciona ambos "form__exit-button" y añade el evento:
-// exitButtons.forEach((btn) => {
-//   btn.addEventListener("click", hideVisibility);
-// })
-
-// Abre el formulario -> Edit Profile:
-// editButton.addEventListener("click", function () {
-//   changeVisibility();
-//   formEditProfile.style.display = "flex";
-//   formAddElement.style.display = "none";
-// });
-
-// Abre el formulario -> Add Card:
-// addCardButton.addEventListener("click", function () {
-//   changeVisibility();
-//   formAddElement.style.display = "flex";
-//   formEditProfile.style.display = "none";
-// });
-
-
-
-
-
-
-// Cerrar Popup con la tecla ESC
-// export function closePopupKeyEscape(event) {
-//   if (event.key === "Escape") {
-    
-//     hideVisibility();
-//     formEditProfile.style.display = "none";
-//     formAddElement.style.display = "none";
-
-//     // cierra el popup-image de la imagen actual
-//     closePopup(imagePopupOpen);
-//     document.removeEventListener("keydown", closePopupKeyEscape);
-//   };
-// }
-
-// Agregar un escuchador de eventos para la tecla 'Escape'
-function addClosePopupKeyEscapeListener() {
-  document.addEventListener("keydown", closePopupKeyEscape);
-};
-
-// Si se realiza click por fuera del formulario se cierra el popup
-// al detectar que el target apunta fuera del formulario (capa semitransparente/popup).
-popup.addEventListener("click", function(evt){
-  if(evt.target === popup){
-    hideVisibility();
-  };
-});
-
-
-
-
-
-
-
-// CREACION EL POPUP IMAGEN
-
-// se declara la variable que conecta con la etiqueta <Template> Origen.
 const popupTemplate = document.querySelector("#popup-template");
 const containerCard = document.querySelector(".elements__list");
+const popup = document.querySelector(".popup");
+const saveButtonProfile = document.querySelector("#save_profile");
+const cardContainerSelector = document.querySelector(".elements__list");
+const saveButtonPlace = document.querySelector("#save_place");
 
+
+// Seleccionar los campos: Profile Info
+let profileName = document.querySelector(".profile__title");
+let profileJob = document.querySelector(".profile__description");
+// Recibir los valores del formulario:
+let nameInput = document.querySelector(".form__name");
+let jobInput = document.querySelector(".form__description");
 // inicializar el popup como null (vacio)
 let imagePopupOpen = null;
+
+
+
+
+
+// renderiza los elementos en el contenedor (Section.js)
+const cardSection = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const cardElement = createCard(item.place, item.link);
+    cardSection.addItem(cardElement);
+  },
+}, cardContainerSelector);
+
+const popupValidateAddElement = new FormValidator(formAddElement, settings);
+popupValidateAddElement.enableValidation();
+
+const popupValidateFormProfile = new FormValidator(formEditProfile, settings);
+popupValidateFormProfile.enableValidation();
+
+
+
+
+
+
+// Codigo ejecutable
+
+cardSection.rendererElement();
+
+// Muestra los valores en los campos "input" del formulario
+nameInput.value = profileName.textContent;
+jobInput.value = profileJob.textContent;
+
+
+
+
+// EVENTOS
+
+// popup.addEventListener("click", function(evt){
+//   if(evt.target === popup){
+//     hideVisibility();
+//   };
+// });
 
 containerCard.addEventListener("click", function (evt) {
   const imageElement = evt.target;
@@ -126,11 +147,26 @@ containerCard.addEventListener("click", function (evt) {
     };
   });
 
-  // se agrega el evento luego de ser creado el popupTemplateCopy
-  addClosePopupKeyEscapeListener()
+  // // se agrega el evento luego de ser creado el popupTemplateCopy
+  // addClosePopupKeyEscapeListener()
 
 };
 });
+
+// saveButtonProfile.addEventListener("click", handleSaveButtonProfile);
+// saveButtonPlace.addEventListener("click", handleSaveButtonPlace);
+
+
+
+//FUNCIONES
+
+// Agregar un escuchador de eventos para la tecla 'Escape'
+// function addClosePopupKeyEscapeListener() {
+//   document.addEventListener("keydown", closePopupKeyEscape);
+// };
+
+// Si se realiza click por fuera del formulario se cierra el popup
+// al detectar que el target apunta fuera del formulario (capa semitransparente/popup).
 
 // función cerrar popup:
 function closePopup(event) {
@@ -140,122 +176,25 @@ function closePopup(event) {
 };
 
 
-
-
-
-// POPUP PROFILE
-
-const saveButtonProfile = document.querySelector("#save_profile");
-
-// Seleccionar los campos: Profile Info
-let profileName = document.querySelector(".profile__title");
-let profileJob = document.querySelector(".profile__description");
-
-// Recibir los valores del formulario:
-let nameInput = document.querySelector(".form__name");
-let jobInput = document.querySelector(".form__description");
-
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-}
-
-// Muestra los valores en los campos "input" del formulario
-nameInput.value = profileName.textContent;
-jobInput.value = profileJob.textContent;
+// function handleProfileFormSubmit(evt) {
+//   evt.preventDefault();
+//   profileName.textContent = nameInput.value;
+//   profileJob.textContent = jobInput.value;
+// }
 
 // El botón guarda los datos y cierra el popup
-function handleSaveButtonProfile(evt) {
-  handleProfileFormSubmit(evt);
-  hideVisibility();
-};
-
-saveButtonProfile.addEventListener("click", handleSaveButtonProfile);
+// function handleSaveButtonProfile(evt) {
+//   handleProfileFormSubmit(evt);
+//   hideVisibility();
+// };
 
 
-
-
-
-
-
-
-// FORMVALIDATOR
-
-const settings = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible"
-};
-
-const popupValidateAddElement = new FormValidator(formAddElement, settings);
-popupValidateAddElement.enableValidation();
-
-const popupValidateFormProfile = new FormValidator(formEditProfile, settings);
-popupValidateFormProfile.enableValidation();
-
-
-
-
-
-
-
-
-const initialCards = [
-  {
-    place: "Valle de Yosemite",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg"
-  },
-  {
-    place: "Lago Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg"
-  },
-  {
-    place: "Montañas Calvas",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg"
-  },
-  {
-    place: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg"
-  },
-  {
-    place: "Parque Nacional de la Vanoise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg"
-  },
-  {
-    place: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg"
-  }
-];
-
-// selecciona el contenedor
-const cardContainerSelector = document.querySelector(".elements__list");
 
 // recibe los parametros y genera el elemento card (Card.js)
 function createCard(place, link){ 
   const card = new Card (place, link, "#card-template");
   return card.generateCard();
 }
-// renderiza los elementos en el contenedor (Section.js)
-const cardSection = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const cardElement = createCard(item.place, item.link);
-    cardSection.addItem(cardElement);
-  },
-}, cardContainerSelector);
-
-cardSection.rendererElement();
-
-
-
-
-
-// boton Guardar Form Add Place
-const saveButtonPlace = document.querySelector("#save_place");
 
 // Añadir Card desde el formulario Add Place:
 function handlePlaceFormSubmit(evt) {
@@ -272,12 +211,52 @@ function handlePlaceFormSubmit(evt) {
 };
    
 // Añade la tarjeta y cierra el formulario al presionar "CREAR"
-function handleSaveButtonPlace(evt){
-  handlePlaceFormSubmit(evt);
-  hideVisibility();
-};
-
-saveButtonPlace.addEventListener("click", handleSaveButtonPlace);
+// function handleSaveButtonPlace(evt){
+//   handlePlaceFormSubmit(evt);
+//   hideVisibility();
+// };
 
 
-const popupProfileUser = new PopupWithForm (()=>{},"selector")
+const userInfo = new UserInfo({
+  userName: profileName,
+  userJobs: profileJob
+});
+
+
+const popupProfileUser = new PopupWithForm ((data) => {
+  userInfo.setUserInfo({
+    name: data.name,
+    ocupation: data.ocupation
+  }) 
+}, "#popup-edit-profile");
+
+
+popupProfileUser.setEventListeners();
+
+editButton.addEventListener("click",() => {
+  popupProfileUser.open();
+});
+
+exitButtons.forEach((button) => {
+  button.addEventListener('click', function () {
+    popupProfileUser.close();
+  });
+});
+
+
+
+
+
+const popupAddPlace = new PopupWithForm (() => {},"#popup-add-place");
+
+popupAddPlace.setEventListeners();
+
+addCardButton.addEventListener("click",() => {
+  popupAddPlace.open();
+});
+
+exitButtons.forEach((button) => {
+  button.addEventListener('click', function () {
+    popupAddPlace.close();
+  });
+});

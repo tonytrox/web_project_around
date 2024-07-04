@@ -13,12 +13,12 @@
 
 /* formulario de creacion de perfiles */
 #form_edit-profile {
-  display: none;
+  /* display: none; */
 }
 
 /* formulario de creacion de elementos */
 #form_add-element {
-  display: none;
+  /* display: none; */
 }
 
 .form__description {

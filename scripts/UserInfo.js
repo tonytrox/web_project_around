@@ -1,7 +1,7 @@
 export class UserInfo {
     constructor({userName, userJobs}){ // recibe un objeto con dos selectores
         this._userName = userName;
-        this._userOcupation = userJobs;
+        this._userJobs = userJobs;
     }
 
     getUserInfo(){
@@ -9,13 +9,13 @@ export class UserInfo {
         // Este método será útil para casos en los que es necesario mostrar los datos del usuario en el formulario abierto.
         return {
             userName: this._userName.textContent,
-            userJobs: this._userOcupation.textContent,
+            userJobs: this._userJobs.textContent,
         }
     }
     setUserInfo(data){
-        const {name, ocupation} = data;
+        const {name, description} = data;
         this._userName.textContent = name;
-        this._userOcupation.textContent = ocupation;
+        this._userJobs.textContent = description;
         // toma los datos del nuevo usuario y los agrega en la página.
     }
 }

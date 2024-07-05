@@ -3,6 +3,7 @@ import {Card} from "./Card.js";
 import {Section} from "./Section.js";
 import {Popup} from "./Popup.js";
 import {PopupWithForm} from "./PopupWithForm.js";
+import {PopupWithImage} from "./PopupWithImage.js";
 import {UserInfo} from "./UserInfo.js";
 
 const settings = {
@@ -43,7 +44,6 @@ const initialCards = [
 
 const editButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
-const exitButtons = document.querySelectorAll(".form__exit-button");
 const formAddElement = document.querySelector("#form_add-element");
 const formEditProfile = document.querySelector("#form_edit-profile");
 const popupTemplate = document.querySelector("#popup-template");
@@ -53,14 +53,20 @@ const saveButtonProfile = document.querySelector("#save_profile");
 const cardContainerSelector = document.querySelector(".elements__list");
 const saveButtonPlace = document.querySelector("#save_place");
 
-
 // Seleccionar los campos: Profile Info
 let profileName = document.querySelector(".profile__title");
 let profileJob = document.querySelector(".profile__description");
 // Recibir los valores del formulario:
 let nameInput = document.querySelector(".form__name");
 let jobInput = document.querySelector(".form__description");
-// inicializar el popup como null (vacio)
+
+const placeInput = document.querySelector(".form__place");
+const imageInput = document.querySelector(".form__image-link");
+  
+const place = placeInput.value;
+const link = imageInput.value;
+
+// inicializar el popup image como null (vacio)
 let imagePopupOpen = null;
 
 
@@ -83,10 +89,6 @@ const popupValidateFormProfile = new FormValidator(formEditProfile, settings);
 popupValidateFormProfile.enableValidation();
 
 
-
-
-
-
 // Codigo ejecutable
 
 cardSection.rendererElement();
@@ -98,13 +100,43 @@ jobInput.value = profileJob.textContent;
 
 
 
-// EVENTOS
 
-// popup.addEventListener("click", function(evt){
-//   if(evt.target === popup){
-//     hideVisibility();
-//   };
-// });
+// Popup Edit Profile
+const userInformation = new UserInfo({
+  userName: profileName,
+  userJobs: profileJob
+});
+
+const popupProfileUser = new PopupWithForm ((data) => {
+  userInformation.setUserInfo({
+    name: data.name,
+    description: data.description
+  });
+
+}, "#popup-edit-profile");
+
+editButton.addEventListener("click",() => {
+  popupProfileUser.open();
+});
+
+
+
+
+// Popup Add Card
+const popupAddPlace = new PopupWithForm ((data) => {
+  const cardPlace = createCard(data.place, data.image-link);
+  cardSection.addItem(cardPlace);
+  
+},"#popup-add-place");
+
+addCardButton.addEventListener("click",() => {
+  popupAddPlace.open();
+});
+
+
+
+
+// EVENTOS
 
 containerCard.addEventListener("click", function (evt) {
   const imageElement = evt.target;
@@ -147,47 +179,18 @@ containerCard.addEventListener("click", function (evt) {
     };
   });
 
-  // // se agrega el evento luego de ser creado el popupTemplateCopy
-  // addClosePopupKeyEscapeListener()
-
 };
 });
-
-// saveButtonProfile.addEventListener("click", handleSaveButtonProfile);
-// saveButtonPlace.addEventListener("click", handleSaveButtonPlace);
-
 
 
 //FUNCIONES
 
-// Agregar un escuchador de eventos para la tecla 'Escape'
-// function addClosePopupKeyEscapeListener() {
-//   document.addEventListener("keydown", closePopupKeyEscape);
-// };
-
-// Si se realiza click por fuera del formulario se cierra el popup
-// al detectar que el target apunta fuera del formulario (capa semitransparente/popup).
-
-// función cerrar popup:
+// función cerrar image popup:
 function closePopup(event) {
   if (event) {
     event.classList.add("popup_image_remove");
   }
 };
-
-
-// function handleProfileFormSubmit(evt) {
-//   evt.preventDefault();
-//   profileName.textContent = nameInput.value;
-//   profileJob.textContent = jobInput.value;
-// }
-
-// El botón guarda los datos y cierra el popup
-// function handleSaveButtonProfile(evt) {
-//   handleProfileFormSubmit(evt);
-//   hideVisibility();
-// };
-
 
 
 // recibe los parametros y genera el elemento card (Card.js)
@@ -196,67 +199,6 @@ function createCard(place, link){
   return card.generateCard();
 }
 
-// Añadir Card desde el formulario Add Place:
-function handlePlaceFormSubmit(evt) {
-  evt.preventDefault();
-  const placeInput = document.querySelector(".form__place");
-  const imageInput = document.querySelector(".form__image-link");
-  
-  const place = placeInput.value;
-  const link = imageInput.value;
-  
-  // Creación de Card mediante FormAddPlace
-  addCards(place, link);
-
-};
-   
-// Añade la tarjeta y cierra el formulario al presionar "CREAR"
-// function handleSaveButtonPlace(evt){
-//   handlePlaceFormSubmit(evt);
-//   hideVisibility();
-// };
+// const imagePopupModal = new PopupWithImage(".popup__image");
 
 
-const userInfo = new UserInfo({
-  userName: profileName,
-  userJobs: profileJob
-});
-
-
-const popupProfileUser = new PopupWithForm ((data) => {
-  userInfo.setUserInfo({
-    name: data.name,
-    ocupation: data.ocupation
-  }) 
-}, "#popup-edit-profile");
-
-
-popupProfileUser.setEventListeners();
-
-editButton.addEventListener("click",() => {
-  popupProfileUser.open();
-});
-
-exitButtons.forEach((button) => {
-  button.addEventListener('click', function () {
-    popupProfileUser.close();
-  });
-});
-
-
-
-
-
-const popupAddPlace = new PopupWithForm (() => {},"#popup-add-place");
-
-popupAddPlace.setEventListeners();
-
-addCardButton.addEventListener("click",() => {
-  popupAddPlace.open();
-});
-
-exitButtons.forEach((button) => {
-  button.addEventListener('click', function () {
-    popupAddPlace.close();
-  });
-});

@@ -1,7 +1,7 @@
 export class Popup {
     constructor(selectorPopup){
         this._popupElement = document.querySelector(selectorPopup);
-        this._popupCloseButton = document.querySelectorAll("form__exit-button");
+        this._popupCloseButton = this._popupElement.querySelector(".form__exit-button"); // selecciona un boton por instancia, NO un array de todos
         this._handleEscClose = this._handleEscClose.bind(this); // lo mantiene dentro del contexto.
         this._handleClickOutside = this._handleClickOutside.bind(this); // lo mantiene dentro del contexto.
     }
@@ -30,20 +30,8 @@ export class Popup {
     }
 
     setEventListeners(){
-        // this._popupCloseButton.addEventListener("click", () => {
-        //     this.close();
-        // });
-        
-        // this._popupCloseButton.forEach((button) => {
-        //     button.addEventListener("click", () => {
-        //         this.close();
-        //     });
-        // });
-
-        // this._popupElement.addEventListener("click", (event) => {
-        //     if(this._handleClickOutside(evt)){
-        //         this.close();
-        //     };
-        // });
+        this._popupCloseButton.addEventListener("click", () => {
+            this.close();
+        });
     }
 }

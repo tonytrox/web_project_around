@@ -1,15 +1,16 @@
 export class Card {
-    constructor(place, link, selector) { //recibe 3 parametros
+    constructor(place, link, selector, handleCardClick) { //recibe 3 parametros
         this._place = place;
         this._link = link;
         this._selector = selector;
+        this._handleCardClick = handleCardClick;
     }
 
     _getCloneCard() {
         const cardElement = document.querySelector(this._selector).content.querySelector(".element__card").cloneNode(true);
-        cardElement.querySelector(".element__text").textContent = this._place;
-        cardElement.querySelector(".element__img").src = this._link;
-        cardElement.querySelector(".element__img").alt = this._place;
+        // cardElement.querySelector(".element__text").textContent = this._place;
+        // cardElement.querySelector(".element__img").src = this._link;
+        // cardElement.querySelector(".element__img").alt = this._place;
         return cardElement;   
     }
 
@@ -19,6 +20,11 @@ export class Card {
 
         const buttonTrash = element.querySelector(".element__remove-button");
         buttonTrash.addEventListener("click", this._handleRemoveButton);
+
+        element.querySelector('.element__img').addEventListener('click', () => {
+            console.log("boton: ", this._link, this._place);
+            this._handleCardClick({ src: this._link, alt: this._place });
+          });
     }
     
     _handleLikeButton(event) {
@@ -32,6 +38,9 @@ export class Card {
     
     generateCard(){ // metodo público
         const element = this._getCloneCard();
+        element.querySelector(".element__text").textContent = this._place;
+        element.querySelector(".element__img").src = this._link;
+        element.querySelector(".element__img").alt = this._place;
         this._setEventListen(element);
         return element;
     }

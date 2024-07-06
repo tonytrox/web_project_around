@@ -49,9 +49,9 @@ const formEditProfile = document.querySelector("#form_edit-profile");
 const popupTemplate = document.querySelector("#popup-template");
 const containerCard = document.querySelector(".elements__list");
 const popup = document.querySelector(".popup");
-const saveButtonProfile = document.querySelector("#save_profile");
+// const saveButtonProfile = document.querySelector("#save_profile");
 const cardContainerSelector = document.querySelector(".elements__list");
-const saveButtonPlace = document.querySelector("#save_place");
+// const saveButtonPlace = document.querySelector("#save_place");
 
 // Seleccionar los campos: Profile Info
 let profileName = document.querySelector(".profile__title");
@@ -70,8 +70,12 @@ const link = imageInput.value;
 let imagePopupOpen = null;
 
 
+const imagePopupModal = new PopupWithImage("#popup-image-container");
+console.log(imagePopupModal);
 
-
+function handleCardClick(data) {
+  imagePopupModal.open(data);
+}
 
 // renderiza los elementos en el contenedor (Section.js)
 const cardSection = new Section({
@@ -138,67 +142,73 @@ addCardButton.addEventListener("click",() => {
 
 // EVENTOS
 
-containerCard.addEventListener("click", function (evt) {
-  const imageElement = evt.target;
+// containerCard.addEventListener("click", function (evt) {
+//   const imageElement = evt.target;
 
-  // se ejecutar el IF si la variable contiene la clase .element__img
-  if (imageElement.classList.contains("element__img")) {
+//   // se ejecutar el IF si la variable contiene la clase .element__img
+//   if (imageElement.classList.contains("element__img")) {
 
-  // crea el template/clone con sus elementos hijos.
-  // y se declaran las variables (de sus elementos)
+//   // crea el template/clone con sus elementos hijos.
+//   // y se declaran las variables (de sus elementos)
 
-  const popupTemplateCopy = popupTemplate.content.cloneNode(true);
+//   const popupTemplateCopy = popupTemplate.content.cloneNode(true);
 
-  const popupPopup = popupTemplateCopy.querySelector(".popup__image");
-  const imagePopup = popupTemplateCopy.querySelector("#popup__image");
-  const textPopup = popupTemplateCopy.querySelector(".element__text_popup");
-  const closeButton = popupTemplateCopy.querySelector("#form__exit-button");
+//   const popupPopup = popupTemplateCopy.querySelector(".popup__image");
+//   const imagePopup = popupTemplateCopy.querySelector("#popup__image");
+//   const textPopup = popupTemplateCopy.querySelector(".element__text_popup");
+//   const closeButton = popupTemplateCopy.querySelector("#form__exit-button");
 
-  // obtendra la imagen y el nombre de las variables.
+//   // obtendra la imagen y el nombre de las variables.
 
-  imagePopup.src = imageElement.src;
-  imagePopup.alt = imageElement.alt;
-  textPopup.textContent = imageElement.alt;
+//   imagePopup.src = imageElement.src;
+//   imagePopup.alt = imageElement.alt;
+//   textPopup.textContent = imageElement.alt;
   
 
-  // lo añade al final del body (popup)
-  document.body.append(popupTemplateCopy);
+//   // lo añade al final del body (popup)
+//   document.body.append(popupTemplateCopy);
 
-  // Se asigna el popup abierto a la variable de comprobación, que inicio como null.
-  imagePopupOpen = popupPopup;
+//   // Se asigna el popup abierto a la variable de comprobación, que inicio como null.
+//   imagePopupOpen = popupPopup;
   
-  closeButton.addEventListener('click', function () {
-    closePopup(imagePopupOpen);
-  });
+//   closeButton.addEventListener('click', function () {
+//     closePopup(imagePopupOpen);
+//   });
 
-  popupPopup.addEventListener('click', function (evt) {
-    // se comprueba que no se este haciendo click sobre la imagen o el texto.
-    // si el click se realiza por fuera, se cierra el popup
-    if (evt.target !== imagePopup && evt.target !== textPopup) {
-      closePopup(imagePopupOpen);
-    };
-  });
+//   popupPopup.addEventListener('click', function (evt) {
+//     // se comprueba que no se este haciendo click sobre la imagen o el texto.
+//     // si el click se realiza por fuera, se cierra el popup
+//     if (evt.target !== imagePopup && evt.target !== textPopup) {
+//       closePopup(imagePopupOpen);
+//     };
+//   });
 
-};
-});
+// };
+// });
 
 
 //FUNCIONES
 
 // función cerrar image popup:
-function closePopup(event) {
-  if (event) {
-    event.classList.add("popup_image_remove");
-  }
-};
+// function closePopup(event) {
+//   if (event) {
+//     event.classList.add("popup_image_remove");
+//   }
+// };
+
+
+
+
+
+
 
 
 // recibe los parametros y genera el elemento card (Card.js)
 function createCard(place, link){ 
-  const card = new Card (place, link, "#card-template");
+  const card = new Card (place, link, "#card-template", handleCardClick);
   return card.generateCard();
 }
 
-// const imagePopupModal = new PopupWithImage(".popup__image");
+
 
 

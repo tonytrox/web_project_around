@@ -9,11 +9,11 @@
 </head>
 <body>
   <header class="header">
-    <img class="header__logo" src="images/logo_aroundus.svg" alt="logo around the world USA">
+    <img class="header__logo" src="<%= require('./images/logo_aroundus.svg')%>" alt="logo around the world USA">
   </header>
   <main class="content">
     <section class="profile">
-      <img class="profile__image" src="images/jacques.png" alt="profile avatar">
+      <img class="profile__image" src="<%= require('./images/jacques.png')%>" alt="profile avatar">
       <div class="profile__info">
         <h1 class="profile__title">Jacques Cousteau</h1>
         <h2 class="profile__description">Explorer</h2>
@@ -97,8 +97,6 @@
 
   <!-- POPUP IMAGE -->
   
- <!-- <template id="popup-template"> -->
- <!-- <div class="popup__image popup_image_opened" id="popup-image-container"> -->
   <div class="popup" id="popup-image-container">
     <div class="popup__container-image">
       <button class="form__exit-button" id="form__exit-button"></button>
@@ -106,7 +104,7 @@
       <h3 class="element__text_popup" id="popup__caption"></h3>
     </div>
   </div>
-<!-- </template> -->
+
 
   <!-- CARDS TEMPLATE -->
   

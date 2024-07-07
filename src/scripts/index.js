@@ -5,6 +5,7 @@ import {Popup} from "./Popup.js";
 import {PopupWithForm} from "./PopupWithForm.js";
 import {PopupWithImage} from "./PopupWithImage.js";
 import {UserInfo} from "./UserInfo.js";
+import "../pages/index.css";
 
 const settings = {
   formSelector: ".popup__form",

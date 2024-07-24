@@ -109,7 +109,7 @@ const cardSection = new Section({
 
 
 // Popup Image  
-const imagePopupModal = new PopupWithImage("#popup-image-container");
+const imagePopupModal = new PopupWithImage("#popup-image");
 imagePopupModal.setEventListeners();
 
 function handleCardClick(data) {

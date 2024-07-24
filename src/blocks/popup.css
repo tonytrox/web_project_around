@@ -26,13 +26,26 @@
   background-color: #FFF;
 }
 
-.popup__container-image {
+.popup__container-images {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
+}
+
+.popup__container-confirm-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FFF;
+  border-radius: 10px;
+  padding: 34px 36px 36px 36px;
 }
 
 .popup__error{
@@ -48,8 +61,6 @@
     width: 358px;
   }
 }
-
-/* crea una capa semitransparente que cubre toda la pantalla */
 
 .popup__image {
   position: fixed;

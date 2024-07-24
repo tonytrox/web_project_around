@@ -1,8 +1,7 @@
 export class Popup {
     constructor(selectorPopup){
         this._popupElement = document.querySelector(selectorPopup);
-        this._popupCloseButton = document.querySelectorAll("#form__exit-button");
-        console.log(this._popupCloseButton); // selecciona un boton por instancia, NO un array de todos
+        this._popupCloseButton = document.querySelectorAll("#form__exit-button"); //selecciona todos los botones de cierre de popups.
         this._handleEscClose = this._handleEscClose.bind(this); // lo mantiene dentro del contexto.
         this._handleClickOutside = this._handleClickOutside.bind(this); // lo mantiene dentro del contexto.
     }

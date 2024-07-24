@@ -32,6 +32,7 @@
 
   <!-- FORMS -->
 
+  <!-- Popup Edit Profile -->
   <div class="popup" id="popup-edit-profile">
     <div class="popup__container">
       <form class="form popup__form" id="form_edit-profile" novalidate>
@@ -64,6 +65,28 @@
     </div>
   </div>
 
+
+  <!-- Popup Edit Avatar -->
+  <div class="popup" id="popup-edit-avatar">
+    <div class="popup__container">
+      <form class="form popup__form" id="form_edit-avatar" novalidate>
+        <button type="button" class="form__exit-button" id="form__exit-button"></button>
+        <h2 class="form__title">Cambiar foto de perfil</h2>
+        <input
+              class="form__image-link popup__input"
+              id="form__image-link"
+              type="url"
+              name="link"
+              placeholder="Enlace de la imagen"
+              required
+            >
+            <span class="popup__error form__image-link-error"></span>
+        <button class="popup__button form__save-button" id="save_avatar">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Popup Add Place -->
   <div class="popup" id="popup-add-place">
     <div class="popup__container">
       <form class="form popup__form" id="form_add-element" novalidate>
@@ -93,7 +116,16 @@
       </form>
     </div>
   </div>
-
+  
+  <!-- POPUP REMOVE CARD -->
+  
+  <div class="popup" id="popup-remove-card">
+    <div class="popup__container">
+      <button class="popup__exit-button" type="button" id="form__exit-button"></button>
+      <h2 class="form__title popup__title">¿Estás seguro?</h2>
+      <button class="popup__button form__save-button" id="remove_card">S&iacute;</button>
+    </div>
+  </div>
 
   <!-- POPUP IMAGE -->
   
@@ -114,7 +146,10 @@
       <img class="element__img" src=" " alt="">
       <div class="element__description">
         <h2 class="element__text"></h2>
-        <button class="element__like-button"></button>
+        <div class="element__container-like">
+          <button class="element__like-button"></button>
+          <p class="element__counter">0</p>
+        </div>
         <button class="element__remove-button"></button>
       </div>
     </div>

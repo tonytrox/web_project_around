@@ -48,6 +48,15 @@
   padding: 34px 36px 36px 36px;
 }
 
+.popup__container-edit-avatar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: #FFF;
+}
+
 .popup__error{
   width: 238px;
   color: red;

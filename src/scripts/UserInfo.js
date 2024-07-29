@@ -1,21 +1,21 @@
 export class UserInfo {
-    constructor({userName, userJobs}){ // recibe un objeto con dos selectores
+    constructor({userName, userDescription}){ // recibe un objeto con dos propiedades
         this._userName = userName;
-        this._userJobs = userJobs;
+        this._userDescription = userDescription;
     }
 
     getUserInfo(){
-        //devuelve un objeto con información sobre el usuario. 
-        // Este método será útil para casos en los que es necesario mostrar los datos del usuario en el formulario abierto.
+        //devuelve un objeto con la información del usuario. 
+        //obtiene el contenido de texto de los elementos correspondientes del DOM
         return {
             userName: this._userName.textContent,
-            userJobs: this._userJobs.textContent,
+            userDescription: this._userDescription.textContent,
         }
     }
     setUserInfo(data){
         const {name, description} = data;
         this._userName.textContent = name;
-        this._userJobs.textContent = description;
+        this._userDescription.textContent = description;
         // toma los datos del nuevo usuario y los agrega en la página.
     }
 }

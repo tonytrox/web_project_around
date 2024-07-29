@@ -115,6 +115,7 @@
   width: 120px;
   height: 120px;
   margin: auto;
+  object-fit: cover;
 }
 
 .profile__image:hover {
@@ -133,6 +134,7 @@
   justify-content: space-between;
   position: relative;
   align-items: center;
+  margin-top: 5px;
 
 } 
 

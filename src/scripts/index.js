@@ -5,6 +5,7 @@ import {Popup} from "./Popup.js";
 import {PopupWithForm} from "./PopupWithForm.js";
 import {PopupWithImage} from "./PopupWithImage.js";
 import {UserInfo} from "./UserInfo.js";
+import {Api} from "./Api.js";
 import "../pages/index.css";
 
 const settings = {
@@ -16,59 +17,45 @@ const settings = {
   errorClass: "popup__error_visible"
 };
 
-const initialCards = [
-  {
-    place: "Valle de Yosemite",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg"
-  },
-  {
-    place: "Lago Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg"
-  },
-  {
-    place: "Montañas Calvas",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg"
-  },
-  {
-    place: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg"
-  },
-  {
-    place: "Parque Nacional de la Vanoise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg"
-  },
-  {
-    place: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg"
-  }
-];
-
 const editButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
 const formAddElement = document.querySelector("#form_add-element");
 const formEditProfile = document.querySelector("#form_edit-profile");
 const cardContainerSelector = document.querySelector(".elements__list");
 
+
 // Seleccionar los campos: Profile Info
 let profileName = document.querySelector(".profile__title");
-let profileJob = document.querySelector(".profile__description");
+let profileDescription = document.querySelector(".profile__description");
+let profileAvatar = document.querySelector(".profile__image");
 // Recibir los valores del formulario:
 let nameInput = document.querySelector(".form__name");
-let jobInput = document.querySelector(".form__description");
+let descriptionInput = document.querySelector(".form__description");
 
+const api = new Api();
 
 // Popup Edit Profile
 const userInformation = new UserInfo({
   userName: profileName,
-  userJobs: profileJob
+  userDescription: profileDescription
 });
 
 const popupProfileUser = new PopupWithForm ((data) => {
+  // Actualizar la interfaz con los datos del perfil
   userInformation.setUserInfo({
     name: data.name,
     description: data.description
   });
 
+  api.updateProfile(data.name, data.description)
+  .then(res => res.json())
+  .then((user) => {
+    profileName.textContent = user.name;
+    profileDescription.textContent = user.about
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 }, "#popup-edit-profile");
 
 editButton.addEventListener("click",() => {
@@ -77,10 +64,29 @@ editButton.addEventListener("click",() => {
 
 
 
-// Popup Add Card
-const popupAddPlace = new PopupWithForm ((data) => {
-  const cardPlace = createCard(data.place, data.link);
-  cardSection.addItem(cardPlace);
+
+
+
+
+let cardSection;
+
+function createCard(name, link){ 
+  const card = new Card (name, link, "#card-template", handleCardClick);
+  return card.generateCard();
+}
+
+const popupAddPlace = new PopupWithForm ((formData) => {
+
+  api.postCard(formData.place, formData.link)
+  .then(res => res.json())
+  .then((cardData) => {
+    const cardPlace = createCard(cardData.name, cardData.link);
+    cardSection.addItem(cardPlace);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 },"#popup-add-place");
 
 addCardButton.addEventListener("click",() => {
@@ -91,20 +97,8 @@ addCardButton.addEventListener("click",() => {
 
 
 
-// recibe los parametros y genera el elemento card (Card.js)
-function createCard(place, link){ 
-  const card = new Card (place, link, "#card-template", handleCardClick);
-  return card.generateCard();
-}
 
-// renderiza los elementos en el contenedor (Section.js)
-const cardSection = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const cardElement = createCard(item.place, item.link);
-    cardSection.addItem(cardElement);
-  },
-}, cardContainerSelector);
+
 
 
 
@@ -116,7 +110,6 @@ function handleCardClick(data) {
   imagePopupModal.open(data);
 }
 
-
 const popupValidateAddElement = new FormValidator(formAddElement, settings);
 popupValidateAddElement.enableValidation();
 
@@ -124,11 +117,40 @@ const popupValidateFormProfile = new FormValidator(formEditProfile, settings);
 popupValidateFormProfile.enableValidation();
 
 
-// Codigo ejecutable
+// API
+
+api.getInfoProfile()
+.then(res => res.json())
+.then((data) => {
+  profileName.textContent = data.name;
+  profileDescription.textContent = data.about;
+  profileAvatar.src = data.avatar;
+  profileAvatar.alt = data.name;
+})
+.then(() => {
+  nameInput.value = profileName.textContent;
+  descriptionInput.value = profileDescription.textContent;
+})
+.catch((err) => {
+  console.log(err);
+});
+
+
+api.getInitialCards()
+.then(res => res.json())
+.then((data) => {
+
+  cardSection = new Section({
+  items: data,
+  renderer: (item) => {
+    const cardElement = createCard(item.name, item.link);
+    cardSection.addItem(cardElement);
+  },
+}, cardContainerSelector);
+
 cardSection.rendererElement();
-
-// Muestra los valores en los campos "input" del formulario
-nameInput.value = profileName.textContent;
-jobInput.value = profileJob.textContent;
-
+})
+.catch((err) => {
+  console.log(err);
+});
 

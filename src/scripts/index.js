@@ -6,6 +6,7 @@ import {PopupWithForm} from "./PopupWithForm.js";
 import {PopupWithImage} from "./PopupWithImage.js";
 import {UserInfo} from "./UserInfo.js";
 import {Api} from "./Api.js";
+import {PopupWithConfirmation} from "./PopupWithConfirmation.js";
 import "../pages/index.css";
 
 const settings = {
@@ -22,6 +23,9 @@ const addCardButton = document.querySelector(".profile__add-button");
 const formAddElement = document.querySelector("#form_add-element");
 const formEditProfile = document.querySelector("#form_edit-profile");
 const cardContainerSelector = document.querySelector(".elements__list");
+
+
+
 
 
 // Seleccionar los campos: Profile Info
@@ -86,6 +90,7 @@ const popupAddPlace = new PopupWithForm ((formData) => {
   .catch((err) => {
     console.log(err);
   });
+  
 
 },"#popup-add-place");
 

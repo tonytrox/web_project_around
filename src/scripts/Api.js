@@ -43,10 +43,13 @@ export class Api {
       })
     };
 
-    setLikes(cardId) {
+    putLikes(likes) {
       return fetch (`${this._baseUrl}/cards/likes/${cardId}`, {
         method: "PUT",
-        headers: this._headers
+        headers: this._headers,
+        body: JSON.stringify({
+          likes: likes
+        })
       })
     };
 

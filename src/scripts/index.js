@@ -75,7 +75,7 @@ editButton.addEventListener("click",() => {
 let cardSection;
 
 function createCard(name, link){ 
-  const card = new Card (name, link, "#card-template", handleCardClick);
+  const card = new Card(name, link, "#card-template", handleCardClick, handlePutLike);
   return card.generateCard();
 }
 
@@ -114,6 +114,28 @@ imagePopupModal.setEventListeners();
 function handleCardClick(data) {
   imagePopupModal.open(data);
 }
+
+function handlePutLike() {
+  // console.log("test");
+  api.putLikes(cardId)
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((data) => {
+      console.log(data);
+      // const likeCounter = document.querySelector(".element__counter");
+      // likeCounter.textContent = data.likes.length;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+
+
 
 const popupValidateAddElement = new FormValidator(formAddElement, settings);
 popupValidateAddElement.enableValidation();

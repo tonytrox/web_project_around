@@ -1,10 +1,12 @@
 import { Popup } from "./Popup.js";
 export class Card {
-    constructor(place, link, selector, handleCardClick) { //recibe 3 parametros
+    constructor(place, link, selector, handleCardClick, handlePutLike) { 
         this._place = place;
         this._link = link;
         this._selector = selector;
         this._handleCardClick = handleCardClick;
+
+        this._handlePutLike = handlePutLike;
     }
 
     _getCloneCard() {
@@ -14,7 +16,10 @@ export class Card {
 
     _setEventListen(element) {
         const buttonLike = element.querySelector(".element__like-button");
-        buttonLike.addEventListener("click", this._handleLikeButton)
+
+        buttonLike.addEventListener("click", (event) => {
+            this._handleLikeButton(event);
+        })
 
         const buttonTrash = element.querySelector(".element__remove-button");
         buttonTrash.addEventListener("click", this._handleRemoveButton);       
@@ -27,14 +32,14 @@ export class Card {
     _handleLikeButton(event) {
         const buttonLikeActive = event.target.classList.toggle("element__like-button_active");
         const counter = event.target.closest(".element__card").querySelector(".element__counter"); 
-        //counter.textContent = likes.length;
+        // counter.textContent = likes.length;
         
-        if (buttonLikeActive) {
-            counter.textContent = "1";
-        } else {
-            counter.textContent = "0";
-        }
-
+        // if (buttonLikeActive) {
+        //     counter.textContent = "1";
+        // } else {
+        //     counter.textContent = "0";
+        // }
+        this._handlePutLike(event);
     }
 
     _handleRemoveButton(event) {
@@ -44,9 +49,7 @@ export class Card {
         
         const buttonTrash = event.target.closest(".element__card").querySelector(".element__remove-button");
         buttonTrash.addEventListener("click", this._handleRemoveButton);
-
-        // const listItem = event.target.closest(".element__card");
-        // listItem.remove();
+        
     }
     
     generateCard(){ // metodo público

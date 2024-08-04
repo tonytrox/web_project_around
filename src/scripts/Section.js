@@ -1,7 +1,7 @@
 export class Section {
     constructor({items, renderer}, containerSelector){
-        this._items = items; //recibe un array
-        this._renderer = renderer; //renderiza los datos - function
+        this._items = items; //recibe el array
+        this._renderer = renderer; //renderiza los datos
         this._container = containerSelector; //selector del contenedor
     }
 

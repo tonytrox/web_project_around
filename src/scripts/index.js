@@ -24,10 +24,6 @@ const formAddElement = document.querySelector("#form_add-element");
 const formEditProfile = document.querySelector("#form_edit-profile");
 const cardContainerSelector = document.querySelector(".elements__list");
 
-
-
-
-
 // Seleccionar los campos: Profile Info
 let profileName = document.querySelector(".profile__title");
 let profileDescription = document.querySelector(".profile__description");
@@ -74,17 +70,23 @@ editButton.addEventListener("click",() => {
 
 let cardSection;
 
-function createCard(name, link){ 
-  const card = new Card(name, link, "#card-template", handleCardClick, handlePutLike);
+function createCard(name, link, likes){
+  const card = new Card(name, link, "#card-template", handleCardClick, likes); // constructor
   return card.generateCard();
 }
 
-const popupAddPlace = new PopupWithForm ((formData) => {
 
-  api.postCard(formData.place, formData.link)
+
+
+
+
+const popupAddPlace = new PopupWithForm ((formData) => {
+//no es necesario llamar formData.likes por que ya lo recibe el constructor una vez que se crea el objeto
+// no es necesario llamarlo antes de su creación
+  api.postCard(formData.place, formData.link) // llama a la API
   .then(res => res.json())
   .then((cardData) => {
-    const cardPlace = createCard(cardData.name, cardData.link);
+    const cardPlace = createCard(cardData.name, cardData.link, cardData.likes); // constructor
     cardSection.addItem(cardPlace);
   })
   .catch((err) => {
@@ -115,24 +117,24 @@ function handleCardClick(data) {
   imagePopupModal.open(data);
 }
 
-function handlePutLike() {
-  // console.log("test");
-  api.putLikes(cardId)
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    })
-    .then((data) => {
-      console.log(data);
-      // const likeCounter = document.querySelector(".element__counter");
-      // likeCounter.textContent = data.likes.length;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
+// function handlePutLike() {
+//   // console.log("test");
+//   api.putLikes(cardId)
+//     .then(res => {
+//       if (res.ok) {
+//         return res.json();
+//       }
+//       return Promise.reject(`Error: ${res.status}`);
+//     })
+//     .then((data) => {
+//       console.log(data);
+//       // const likeCounter = document.querySelector(".element__counter");
+//       // likeCounter.textContent = data.likes.length;
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// }
 
 
 
@@ -146,7 +148,7 @@ popupValidateFormProfile.enableValidation();
 
 // API
 
-api.getInfoProfile()
+api.getInfoProfile() // llama a la API
 .then(res => res.json())
 .then((data) => {
   profileName.textContent = data.name;
@@ -163,20 +165,20 @@ api.getInfoProfile()
 });
 
 
-api.getInitialCards()
-.then(res => res.json())
+api.getInitialCards() // llama a la API
+.then(res => res.json()) // Lee y transforma la respuesta en datos JSON y se lo pasa al siguiente .then
 .then((data) => {
-
   cardSection = new Section({
   items: data,
   renderer: (item) => {
-    const cardElement = createCard(item.name, item.link);
+    const cardElement = createCard(item.name, item.link, item.likes)
     cardSection.addItem(cardElement);
   },
 }, cardContainerSelector);
 
 cardSection.rendererElement();
 })
+
 .catch((err) => {
   console.log(err);
 });

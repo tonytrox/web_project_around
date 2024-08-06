@@ -44,12 +44,19 @@ export class Api {
       })
     };
 
-    putLikes(cardId) {
-      return fetch (`${this._baseUrl}/cards/likes/${cardId}`, {
-        method: "PUT",
+    deleteCard(cardId) {
+      return fetch (`${this._baseUrl}/cards/${cardId}`, {
+        method: "DELETE",
         headers: this._headers,
       })
     };
+
+    // putLikes(cardId) {
+    //   return fetch (`${this._baseUrl}/cards/likes/${cardId}`, {
+    //     method: "PUT",
+    //     headers: this._headers,
+    //   })
+    // };
 
   };
 

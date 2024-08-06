@@ -1,6 +1,6 @@
 import { Popup } from "./Popup.js";
 export class Card {
-    constructor(place, link, selector, handleCardClick, likes, _id, owner) {  // iniciar el constructor añadiendo nuevos atributos
+    constructor(place, link, selector, handleCardClick, likes, _id, owner, currentUserId) {  // iniciar el constructor añadiendo nuevos atributos
         this._place = place;
         this._link = link;
         this._selector = selector;
@@ -9,6 +9,7 @@ export class Card {
         this._likes = likes;
         this._id = _id;
         this._owner = owner;
+        this._currentUserId = currentUserId;
     }
 
     _getCloneCard() {
@@ -37,13 +38,12 @@ export class Card {
 
     }
 
-    _handleRemoveButton(event) {
-        
+    _handleRemoveButton() {
         const popupConfirmCard = document.querySelector("#popup-confirm-card");
         popupConfirmCard.classList.add('popup_opened');
         
-        const buttonTrash = event.target.closest(".element__card").querySelector(".element__remove-button");
-        buttonTrash.addEventListener("click", this._handleRemoveButton);
+        // const buttonTrash = event.target.closest(".element__card").querySelector(".element__remove-button");
+        // buttonTrash.addEventListener("click", this._handleRemoveButton);
         
     }
     
@@ -53,6 +53,11 @@ export class Card {
         element.querySelector(".element__img").src = this._link;
         element.querySelector(".element__img").alt = this._place;
         element.querySelector(".element__counter").textContent = this._likes.length;
+
+            // if (this._owner !== this._currentUserId) {
+            //     element.querySelector(".element__remove-button").style.display = 'none';
+            // }
+
         this._setEventListen(element);
         return element;
     }

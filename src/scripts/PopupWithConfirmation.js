@@ -1,10 +1,21 @@
 import { Popup } from "./Popup.js";
 
-// export class PopupWithConfirmation extends Popup {
+export class PopupWithConfirmation extends Popup {
+    constructor(selectorPopup) {
+        super(selectorPopup);
+    }
+
+    open() {
+        super.open();        
+    }
     
-//     constructor(popupSelector) {
-//         super(popupSelector);
+    close() {
+        super.close();
+    }
+
+    setEventListeners() {
+        super.setEventListeners();
         
-//     }
+    }
     
-// }
+}

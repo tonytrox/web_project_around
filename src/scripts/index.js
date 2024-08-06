@@ -145,6 +145,9 @@ popupValidateAddElement.enableValidation();
 const popupValidateFormProfile = new FormValidator(formEditProfile, settings);
 popupValidateFormProfile.enableValidation();
 
+const popupDeleteCard = new PopupWithConfirmation("#popup-confirm-card");
+popupDeleteCard.setEventListeners();
+
 
 // API
 

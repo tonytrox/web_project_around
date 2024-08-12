@@ -1,15 +1,15 @@
 import { Popup } from "./Popup.js";
 export class Card {
-    constructor(place, link, selector, handleCardClick, likes, _id, owner, currentUserId) {  // iniciar el constructor añadiendo nuevos atributos
+    constructor(place, link, selector, handleCardClick, likes, _id, owner, popupDeleteCard) {  // iniciar el constructor añadiendo nuevos atributos
         this._place = place;
         this._link = link;
         this._selector = selector;
         this._handleCardClick = handleCardClick;
-
         this._likes = likes;
         this._id = _id;
         this._owner = owner;
-        this._currentUserId = currentUserId;
+
+        this.popupDeleteCard = popupDeleteCard;
     }
 
     _getCloneCard() {
@@ -17,7 +17,7 @@ export class Card {
         return cardElement;   
     }
 
-    _setEventListen(element) {
+    _setEventListeners(element) {
         const buttonLike = element.querySelector(".element__like-button");
 
         buttonLike.addEventListener("click", (event) => {
@@ -25,7 +25,10 @@ export class Card {
         })
 
         const buttonTrash = element.querySelector(".element__remove-button");
-        buttonTrash.addEventListener("click", this._handleRemoveButton);       
+        buttonTrash.addEventListener("click", () => {
+            console.log("borrar", this._owner);
+            this.popupDeleteCard.open();
+        });       
 
         element.querySelector('.element__img').addEventListener('click', () => {
             this._handleCardClick({ src: this._link, alt: this._place });
@@ -38,14 +41,14 @@ export class Card {
 
     }
 
-    _handleRemoveButton() {
-        const popupConfirmCard = document.querySelector("#popup-confirm-card");
-        popupConfirmCard.classList.add('popup_opened');
+    // _handleRemoveButton() {
+    //     const popupConfirmCard = document.querySelector("#popup-confirm-card");
+    //     popupConfirmCard.classList.add('popup_opened');
         
-        // const buttonTrash = event.target.closest(".element__card").querySelector(".element__remove-button");
-        // buttonTrash.addEventListener("click", this._handleRemoveButton);
+    //     // const buttonTrash = event.target.closest(".element__card").querySelector(".element__remove-button");
+    //     // buttonTrash.addEventListener("click", this._handleRemoveButton);
         
-    }
+    // }
     
     generateCard(){ // metodo público
         const element = this._getCloneCard();
@@ -58,7 +61,7 @@ export class Card {
             //     element.querySelector(".element__remove-button").style.display = 'none';
             // }
 
-        this._setEventListen(element);
+        this._setEventListeners(element);
         return element;
     }
 }

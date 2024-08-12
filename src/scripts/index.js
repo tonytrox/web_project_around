@@ -64,19 +64,12 @@ editButton.addEventListener("click",() => {
 
 
 
-
-
-
-
 let cardSection;
 
-function createCard(name, link, likes){
-  const card = new Card(name, link, "#card-template", handleCardClick, likes); // constructor
+function createCard(name, link, likes, _id, owner) {
+  const card = new Card(name, link, "#card-template", handleCardClick, likes, _id, owner, popupDeleteCard); // constructor
   return card.generateCard();
 }
-
-
-
 
 
 
@@ -103,12 +96,6 @@ addCardButton.addEventListener("click",() => {
 
 
 
-
-
-
-
-
-
 // Popup Image  
 const imagePopupModal = new PopupWithImage("#popup-image");
 imagePopupModal.setEventListeners();
@@ -116,26 +103,6 @@ imagePopupModal.setEventListeners();
 function handleCardClick(data) {
   imagePopupModal.open(data);
 }
-
-// function handlePutLike() {
-//   // console.log("test");
-//   api.putLikes(cardId)
-//     .then(res => {
-//       if (res.ok) {
-//         return res.json();
-//       }
-//       return Promise.reject(`Error: ${res.status}`);
-//     })
-//     .then((data) => {
-//       console.log(data);
-//       // const likeCounter = document.querySelector(".element__counter");
-//       // likeCounter.textContent = data.likes.length;
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// }
-
 
 
 
@@ -171,10 +138,11 @@ api.getInfoProfile() // llama a la API
 api.getInitialCards() // llama a la API
 .then(res => res.json()) // Lee y transforma la respuesta en datos JSON y se lo pasa al siguiente .then
 .then((data) => {
+  console.log(data);
   cardSection = new Section({
   items: data,
   renderer: (item) => {
-    const cardElement = createCard(item.name, item.link, item.likes)
+    const cardElement = createCard(item.name, item.link, item.likes, item._id, item.owner._id);
     cardSection.addItem(cardElement);
   },
 }, cardContainerSelector);

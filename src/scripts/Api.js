@@ -4,7 +4,10 @@ export class Api {
       this._headers = {
         "content-type": "application/json",
         "Authorization": "d1315ee3-c0aa-41a4-8107-d76afccb8021"
-    }}
+      };
+      // this._userId = "d1315ee3c0aa41a48107d76afccb8021";
+      this._userId = "3b1c7f7a9ba36cb4ce8e9c33";
+    }
 
     getInfoProfile(){
       return fetch (`${this._baseUrl}/users/me`, {

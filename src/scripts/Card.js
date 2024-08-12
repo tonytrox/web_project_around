@@ -1,6 +1,6 @@
 import { Popup } from "./Popup.js";
 export class Card {
-    constructor(place, link, selector, handleCardClick, likes, _id, owner, popupDeleteCard) {  // iniciar el constructor añadiendo nuevos atributos
+    constructor(place, link, selector, handleCardClick, likes, _id, owner, popupDeleteCard, currentUserId, handleDeleteCard) {  // iniciar el constructor añadiendo nuevos atributos
         this._place = place;
         this._link = link;
         this._selector = selector;
@@ -10,6 +10,8 @@ export class Card {
         this._owner = owner;
 
         this.popupDeleteCard = popupDeleteCard;
+        this._currentUserId = currentUserId;
+        this._handleDeleteCard = handleDeleteCard;
     }
 
     _getCloneCard() {
@@ -25,10 +27,26 @@ export class Card {
         })
 
         const buttonTrash = element.querySelector(".element__remove-button");
+        if (this._owner !== this._currentUserId) {
+            buttonTrash.style.display = "none";
+        }
         buttonTrash.addEventListener("click", () => {
-            console.log("borrar", this._owner);
+            // console.log("borrar", this._owner);
             this.popupDeleteCard.open();
-        });       
+        });
+
+
+
+
+        const removeCardButton = document.querySelector("#remove-card");
+
+        // removeCardButton.addEventListener("click", () => {
+        //     this._handleDeleteCard(this._id);
+        // });
+
+
+
+
 
         element.querySelector('.element__img').addEventListener('click', () => {
             this._handleCardClick({ src: this._link, alt: this._place });
@@ -40,15 +58,7 @@ export class Card {
         console.log(event.target);
 
     }
-
-    // _handleRemoveButton() {
-    //     const popupConfirmCard = document.querySelector("#popup-confirm-card");
-    //     popupConfirmCard.classList.add('popup_opened');
-        
-    //     // const buttonTrash = event.target.closest(".element__card").querySelector(".element__remove-button");
-    //     // buttonTrash.addEventListener("click", this._handleRemoveButton);
-        
-    // }
+    
     
     generateCard(){ // metodo público
         const element = this._getCloneCard();
@@ -56,10 +66,6 @@ export class Card {
         element.querySelector(".element__img").src = this._link;
         element.querySelector(".element__img").alt = this._place;
         element.querySelector(".element__counter").textContent = this._likes.length;
-
-            // if (this._owner !== this._currentUserId) {
-            //     element.querySelector(".element__remove-button").style.display = 'none';
-            // }
 
         this._setEventListeners(element);
         return element;

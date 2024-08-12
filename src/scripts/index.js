@@ -33,6 +33,7 @@ let nameInput = document.querySelector(".form__name");
 let descriptionInput = document.querySelector(".form__description");
 
 const api = new Api();
+const currentUserId = api._userId;
 
 // Popup Edit Profile
 const userInformation = new UserInfo({
@@ -67,7 +68,7 @@ editButton.addEventListener("click",() => {
 let cardSection;
 
 function createCard(name, link, likes, _id, owner) {
-  const card = new Card(name, link, "#card-template", handleCardClick, likes, _id, owner, popupDeleteCard); // constructor
+  const card = new Card(name, link, "#card-template", handleCardClick, likes, _id, owner, popupDeleteCard, currentUserId, handleDeleteCard); // constructor
   return card.generateCard();
 }
 
@@ -103,6 +104,19 @@ imagePopupModal.setEventListeners();
 function handleCardClick(data) {
   imagePopupModal.open(data);
 }
+
+
+
+
+function handleDeleteCard(cardId, callback) {
+    return api.deleteCard(cardId)
+    .then(() => {
+      callback();
+    });
+  }
+
+
+
 
 
 

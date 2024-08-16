@@ -5,8 +5,9 @@ export class PopupWithConfirmation extends Popup {
         super(selectorPopup);
     }
 
-    open() {
-        super.open();        
+    open(callback) {
+        super.open();
+        this._callback = callback;        
     }
     
     close() {
@@ -15,7 +16,15 @@ export class PopupWithConfirmation extends Popup {
 
     setEventListeners() {
         super.setEventListeners();
-        
+
+        const removeCardButton = document.querySelector("#remove_card");
+
+        removeCardButton.addEventListener("click", () => {
+           this._callback().then(() => {
+               this.close();
+           })
+        });
+
     }
     
 }

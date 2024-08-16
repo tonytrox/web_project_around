@@ -25,6 +25,20 @@ export class PopupWithForm extends Popup {
             evt.preventDefault();
             this._handleFormSubmit(this._getInputValues());
             this.close();
+
+
+
+            // this._formElement.addEventListener("submit", (evt) => {
+            //     evt.preventDefault();
+            //     this._popupElement.querySelector(".form__save-button").textContent = "Guardando..."
+                
+            //     this._handleFormSubmit(this._getInputValues())            
+            //     .then(() => this.close())
+            //     .catch((err) => console.log(err))
+            //     // no actualiza el boton de guardar, de guardando a guardado
+            // })
+
+
         })
     }
 

@@ -67,8 +67,21 @@ editButton.addEventListener("click",() => {
 
 let cardSection;
 
+// function createCard(name, link, likes, _id, owner) {
+//   const card = new Card(name, link, "#card-template", handleCardClick, likes, _id, owner, popupDeleteCard, currentUserId, handleDeleteCard); // constructor
+//   return card.generateCard();
+// }
+
 function createCard(name, link, likes, _id, owner) {
-  const card = new Card(name, link, "#card-template", handleCardClick, likes, _id, owner, popupDeleteCard, currentUserId, handleDeleteCard); // constructor
+  const card = new Card(name, link, "#card-template", handleCardClick, likes, _id, owner, currentUserId, 
+    {handleDeleteCard: (cardId, callback) => {
+        popupWithConfirm.open(() => {
+        return api.deleteCard(cardId)
+        .then(() => {
+          callback();
+        });
+    });
+  }}); // constructor
   return card.generateCard();
 }
 
@@ -107,27 +120,14 @@ function handleCardClick(data) {
 
 
 
-
-function handleDeleteCard(cardId, callback) {
-    return api.deleteCard(cardId)
-    .then(() => {
-      callback();
-    });
-  }
-
-
-
-
-
-
 const popupValidateAddElement = new FormValidator(formAddElement, settings);
 popupValidateAddElement.enableValidation();
 
 const popupValidateFormProfile = new FormValidator(formEditProfile, settings);
 popupValidateFormProfile.enableValidation();
 
-const popupDeleteCard = new PopupWithConfirmation("#popup-confirm-card");
-popupDeleteCard.setEventListeners();
+const popupWithConfirm = new PopupWithConfirmation("#popup-confirm-card");
+popupWithConfirm.setEventListeners();
 
 
 // API
@@ -159,7 +159,9 @@ api.getInitialCards() // llama a la API
     const cardElement = createCard(item.name, item.link, item.likes, item._id, item.owner._id);
     cardSection.addItem(cardElement);
   },
-}, cardContainerSelector);
+}
+
+, cardContainerSelector);
 
 cardSection.rendererElement();
 })

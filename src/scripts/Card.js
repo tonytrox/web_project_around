@@ -1,6 +1,6 @@
 import { Popup } from "./Popup.js";
 export class Card {
-    constructor(place, link, selector, handleCardClick, likes, _id, owner, popupDeleteCard, currentUserId, handleDeleteCard) {  // iniciar el constructor añadiendo nuevos atributos
+    constructor(place, link, selector, handleCardClick, likes, _id, owner, currentUserId, { handleDeleteCard }) {  // iniciar el constructor añadiendo nuevos atributos
         this._place = place;
         this._link = link;
         this._selector = selector;
@@ -9,7 +9,6 @@ export class Card {
         this._id = _id;
         this._owner = owner;
 
-        this.popupDeleteCard = popupDeleteCard;
         this._currentUserId = currentUserId;
         this._handleDeleteCard = handleDeleteCard;
     }
@@ -26,27 +25,6 @@ export class Card {
             this._handleLikeButton(event);
         })
 
-        const buttonTrash = element.querySelector(".element__remove-button");
-        if (this._owner !== this._currentUserId) {
-            buttonTrash.style.display = "none";
-        }
-        buttonTrash.addEventListener("click", () => {
-            // console.log("borrar", this._owner);
-            this.popupDeleteCard.open();
-        });
-
-
-
-
-        const removeCardButton = document.querySelector("#remove-card");
-
-        // removeCardButton.addEventListener("click", () => {
-        //     this._handleDeleteCard(this._id);
-        // });
-
-
-
-
 
         element.querySelector('.element__img').addEventListener('click', () => {
             this._handleCardClick({ src: this._link, alt: this._place });
@@ -62,11 +40,22 @@ export class Card {
     
     generateCard(){ // metodo público
         const element = this._getCloneCard();
+        
+        element.querySelector(".element__remove-button").addEventListener("click", () => {
+            this._handleDeleteCard(this._id, () => {
+                element.remove();
+            })
+        });
+        
+        // if (this._owner._id !== this._id) {
+        //     element.querySelector(".element__remove-button").remove();
+        // }
+        
+        
         element.querySelector(".element__text").textContent = this._place;
         element.querySelector(".element__img").src = this._link;
         element.querySelector(".element__img").alt = this._place;
         element.querySelector(".element__counter").textContent = this._likes.length;
-
         this._setEventListeners(element);
         return element;
     }

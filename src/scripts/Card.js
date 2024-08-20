@@ -8,7 +8,6 @@ export class Card {
         this._likes = likes;
         this._id = _id;
         this._owner = owner;
-
         this._currentUserId = currentUserId;
         this._handleDeleteCard = handleDeleteCard;
     }
@@ -37,8 +36,7 @@ export class Card {
 
     }
     
-    
-    generateCard(){ // metodo público
+    generateCard(){
         const element = this._getCloneCard();
         
         element.querySelector(".element__remove-button").addEventListener("click", () => {
@@ -46,11 +44,10 @@ export class Card {
                 element.remove();
             })
         });
-        
-        // if (this._owner._id !== this._id) {
-        //     element.querySelector(".element__remove-button").remove();
-        // }
-        
+
+        if (this._owner != this._currentUserId) {
+            element.querySelector(".element__remove-button").remove();
+        }
         
         element.querySelector(".element__text").textContent = this._place;
         element.querySelector(".element__img").src = this._link;

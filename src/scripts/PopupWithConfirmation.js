@@ -7,7 +7,7 @@ export class PopupWithConfirmation extends Popup {
 
     open(callback) {
         super.open();
-        this._callback = callback;        
+        this._onConfirm = callback;        
     }
     
     close() {
@@ -20,7 +20,8 @@ export class PopupWithConfirmation extends Popup {
         const removeCardButton = document.querySelector("#remove_card");
 
         removeCardButton.addEventListener("click", () => {
-           this._callback().then(() => {
+           this._onConfirm()
+           .then(() => {
                this.close();
            })
         });

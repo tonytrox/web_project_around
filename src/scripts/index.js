@@ -31,6 +31,7 @@ let profileAvatar = document.querySelector(".profile__image");
 // Recibir los valores del formulario:
 let nameInput = document.querySelector(".form__name");
 let descriptionInput = document.querySelector(".form__description");
+let cardSection;
 
 const api = new Api();
 const currentUserId = api._userId;
@@ -41,36 +42,27 @@ const userInformation = new UserInfo({
   userDescription: profileDescription
 });
 
-const popupProfileUser = new PopupWithForm ((data) => {
-  // Actualizar la interfaz con los datos del perfil
+
+// (2) Actualizar la interfaz con los datos recibidos de la API
+const popupProfileUser = new PopupWithForm (async(data) => {
   userInformation.setUserInfo({
     name: data.name,
     description: data.description
   });
 
-  api.updateProfile(data.name, data.description)
-  .then(res => res.json())
-  .then((user) => {
-    profileName.textContent = user.name;
-    profileDescription.textContent = user.about
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+//(1) obtiene los datos completos de la API y actualiza la interfaz
+  const apiResponse = await api.updateProfile(data.name, data.description)
+  const respondeJson = await apiResponse.json();
+  profileName.textContent = respondeJson.name;
+  profileDescription.textContent = respondeJson.about;
+  return respondeJson;
+  
 }, "#popup-edit-profile");
 
 editButton.addEventListener("click",() => {
   popupProfileUser.open();
 });
 
-
-
-let cardSection;
-
-// function createCard(name, link, likes, _id, owner) {
-//   const card = new Card(name, link, "#card-template", handleCardClick, likes, _id, owner, popupDeleteCard, currentUserId, handleDeleteCard); // constructor
-//   return card.generateCard();
-// }
 
 function createCard(name, link, likes, _id, owner) {
   const card = new Card(name, link, "#card-template", handleCardClick, likes, _id, owner, currentUserId, 
@@ -99,8 +91,6 @@ const popupAddPlace = new PopupWithForm ((formData) => {
   .catch((err) => {
     console.log(err);
   });
-  
-
 },"#popup-add-place");
 
 addCardButton.addEventListener("click",() => {
@@ -159,13 +149,9 @@ api.getInitialCards() // llama a la API
     const cardElement = createCard(item.name, item.link, item.likes, item._id, item.owner._id);
     cardSection.addItem(cardElement);
   },
-}
-
-, cardContainerSelector);
-
+}, cardContainerSelector);
 cardSection.rendererElement();
 })
-
 .catch((err) => {
   console.log(err);
 });

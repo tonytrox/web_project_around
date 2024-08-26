@@ -53,6 +53,34 @@ export class Api {
         headers: this._headers,
       })
     };
+
+    putLikesCard(cardId) {
+      console.log("put Likes");
+      return fetch (`${this._baseUrl}/cards/likes/${cardId}`, {
+        method: "PUT",
+        headers: this._headers,
+      })
+    };
+
+    RemoveLikesCard(cardId) {
+      console.log("remove Likes");
+      return fetch (`${this._baseUrl}/cards/likes/${cardId}`, {
+        method: "DELETE",
+        headers: this._headers,
+      })
+    };
+
+
+
+    // updateAvatar(link) {
+    //   return fetch (`${this._baseUrl}/users/me/avatar`, {
+    //     method: "PATCH",
+    //     headers: this._headers,
+    //     body: JSON.stringify({
+    //       avatar: link
+    //     })
+    //   })
+    // };
   };
 
 

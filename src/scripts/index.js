@@ -65,15 +65,39 @@ editButton.addEventListener("click",() => {
 
 
 function createCard(name, link, likes, _id, owner) {
-  const card = new Card(name, link, "#card-template", handleCardClick, likes, _id, owner, currentUserId, 
+  const card = new Card(
+    name,
+    link,
+    "#card-template",
+    handleCardClick,
+    likes,
+    _id,
+    owner,
+    currentUserId,
     {handleDeleteCard: (cardId, callback) => {
-        popupWithConfirm.open(() => {
+      popupWithConfirm.open(() => {
         return api.deleteCard(cardId)
         .then(() => {
           callback();
+        })
+        .catch((err) => {
+          console.log(err);
         });
-    });
-  }}); // constructor
+      })
+    },
+    handleAddLikes: (cardId) => {
+      return api.putLikesCard(cardId)
+      // .then(res => res.json())
+      // .catch((err) => {
+      //   console.log(err);
+      // });
+    },
+    handleRemoveLikes: (cardId) => {
+      return api.RemoveLikesCard(cardId)
+    }
+
+    }
+  ); // constructor
   return card.generateCard();
 }
 

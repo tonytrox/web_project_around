@@ -1,6 +1,6 @@
 import { Popup } from "./Popup.js";
 export class Card {
-    constructor(place, link, selector, handleCardClick, likes, _id, owner, currentUserId, { handleDeleteCard }) {  // iniciar el constructor añadiendo nuevos atributos
+    constructor(place, link, selector, handleCardClick, likes, _id, owner, currentUserId, { handleDeleteCard, handleAddLikes, handleRemoveLikes }) {  // iniciar el constructor añadiendo nuevos atributos
         this._place = place;
         this._link = link;
         this._selector = selector;
@@ -10,6 +10,8 @@ export class Card {
         this._owner = owner;
         this._currentUserId = currentUserId;
         this._handleDeleteCard = handleDeleteCard;
+        this._handleAddLikes = handleAddLikes;
+        this._handleRemoveLikes = handleRemoveLikes;
     }
 
     _getCloneCard() {
@@ -19,9 +21,21 @@ export class Card {
 
     _setEventListeners(element) {
         const buttonLike = element.querySelector(".element__like-button");
-
-        buttonLike.addEventListener("click", (event) => {
-            this._handleLikeButton(event);
+        const likeStatus = element.classList.contains("element__like-button_active");
+        
+        buttonLike.addEventListener("click", () => {
+            // this._handleLikeButton(event);
+            if (likeStatus) {
+                this._handleAddLikes(this._id, () => {
+                    element.classList.add("element__like-button_active");
+                    element.querySelector(".element__counter").textContent = this._likes.length;
+                })
+            } else {
+                this._handleRemoveLikes(this._id, () => {
+                    element.classList.remove("element__like-button_active");
+                    element.querySelector(".element__counter").textContent = this._likes.length;
+                })
+            }
         })
 
 
@@ -30,11 +44,11 @@ export class Card {
         });
     }
     
-    _handleLikeButton(event) {
-        const buttonLikeActive = event.target.classList.toggle("element__like-button_active");
-        console.log(event.target);
+    // _handleLikeButton(event) {
+    //     const buttonLikeActive = event.target.classList.toggle("element__like-button_active");
+    //     console.log(event.target);
 
-    }
+    // }
     
     generateCard(){
         const element = this._getCloneCard();

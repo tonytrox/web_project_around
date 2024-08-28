@@ -21,34 +21,27 @@ export class Card {
 
     _setEventListeners(element) {
         const buttonLike = element.querySelector(".element__like-button");
-        const likeStatus = element.classList.contains("element__like-button_active");
-        
+        const likeStatus = element.querySelector(".element__counter");
+
         buttonLike.addEventListener("click", () => {
-            // this._handleLikeButton(event);
-            if (likeStatus) {
-                this._handleAddLikes(this._id, () => {
-                    element.classList.add("element__like-button_active");
-                    element.querySelector(".element__counter").textContent = this._likes.length;
+            if (buttonLike.classList.contains("element__like-button_active")) {
+                this._handleRemoveLikes(this._id).then( () => {
+                    buttonLike.classList.remove("element__like-button_active");
+                    likeStatus.textContent = this._likes.length;
                 })
             } else {
-                this._handleRemoveLikes(this._id, () => {
-                    element.classList.remove("element__like-button_active");
-                    element.querySelector(".element__counter").textContent = this._likes.length;
+                this._handleAddLikes(this._id).then( () => {
+                    buttonLike.classList.add("element__like-button_active");
+                    likeStatus.textContent = this._likes.length;
                 })
             }
         })
-
 
         element.querySelector('.element__img').addEventListener('click', () => {
             this._handleCardClick({ src: this._link, alt: this._place });
         });
     }
     
-    // _handleLikeButton(event) {
-    //     const buttonLikeActive = event.target.classList.toggle("element__like-button_active");
-    //     console.log(event.target);
-
-    // }
     
     generateCard(){
         const element = this._getCloneCard();
@@ -61,6 +54,10 @@ export class Card {
 
         if (this._owner != this._currentUserId) {
             element.querySelector(".element__remove-button").remove();
+        }
+
+        if (this._likes.length > 0) {
+           element.querySelector(".element__like-button").classList.add("element__like-button_active");
         }
         
         element.querySelector(".element__text").textContent = this._place;

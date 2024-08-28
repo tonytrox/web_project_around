@@ -19,6 +19,7 @@ const settings = {
 };
 
 const editButton = document.querySelector(".profile__edit-button");
+// const editAvatarButton = document.querySelector(".profile__edit-avatar");
 const addCardButton = document.querySelector(".profile__add-button");
 const formAddElement = document.querySelector("#form_add-element");
 const formEditProfile = document.querySelector("#form_edit-profile");
@@ -87,10 +88,6 @@ function createCard(name, link, likes, _id, owner) {
     },
     handleAddLikes: (cardId) => {
       return api.putLikesCard(cardId)
-      // .then(res => res.json())
-      // .catch((err) => {
-      //   console.log(err);
-      // });
     },
     handleRemoveLikes: (cardId) => {
       return api.RemoveLikesCard(cardId)
@@ -120,8 +117,6 @@ const popupAddPlace = new PopupWithForm ((formData) => {
 addCardButton.addEventListener("click",() => {
   popupAddPlace.open();
 });
-
-
 
 
 // Popup Image  
@@ -180,3 +175,21 @@ cardSection.rendererElement();
   console.log(err);
 });
 
+const editAvatarButton = document.querySelector(".profile__avatar");
+
+const formEditAvatar = new PopupWithForm((data) => {
+  const avatarUrl = data.link; // Obtener la URL del input
+
+  api.updateAvatar(avatarUrl)
+    .then(res => res.json())
+    .then(responseJson => {
+      profileAvatar.src = responseJson.avatar; // Actualizar el src de la imagen del avatar
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}, "#popup-edit-avatar");
+
+editAvatarButton.addEventListener("click", () => {
+  formEditAvatar.open();
+});

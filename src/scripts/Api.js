@@ -13,7 +13,7 @@ export class Api {
       return fetch (`${this._baseUrl}/users/me`, {
         method: "GET",
         headers: this._headers
-      })
+      }).then((res) => res.json()) // Lee y transforma la respuesta en datos JSON y se lo pasa al siguiente .then
     };
     
     // obtiene los datos completos de las tarjetas
@@ -21,7 +21,7 @@ export class Api {
       return fetch (`${this._baseUrl}/cards`, {
         method: "GET",
         headers: this._headers
-      })
+      }).then((res) => res.json())
     };
   
     // pasar los datos del formulario a la API
@@ -33,7 +33,7 @@ export class Api {
           name: name, 
           about: about
         })
-      })
+      }).then((res) => res.json())
     };
 
     postCard(name, link) {
@@ -44,14 +44,14 @@ export class Api {
           name: name, 
           link: link
         })
-      })
+      }).then((res) => res.json())
     };
 
     deleteCard(cardId) {
       return fetch (`${this._baseUrl}/cards/${cardId}`, {
         method: "DELETE",
         headers: this._headers,
-      })
+      }).then((res) => res.json())
     };
 
     putLikesCard(cardId) {
@@ -59,15 +59,15 @@ export class Api {
       return fetch (`${this._baseUrl}/cards/likes/${cardId}`, {
         method: "PUT",
         headers: this._headers,
-      })
+      }).then((res) => res.json())
     };
 
-    RemoveLikesCard(cardId) {
+    removeLikesCard(cardId) {
       console.log("remove Likes");
       return fetch (`${this._baseUrl}/cards/likes/${cardId}`, {
         method: "DELETE",
         headers: this._headers,
-      })
+      }).then((res) => res.json())
     };
 
     updateAvatar(avatar) {
@@ -77,7 +77,7 @@ export class Api {
         body: JSON.stringify({
           avatar: avatar
         })
-      })
+      }).then((res) => res.json())
     };
     
   };

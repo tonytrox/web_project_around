@@ -25,13 +25,15 @@ export class Card {
 
         buttonLike.addEventListener("click", () => {
             if (buttonLike.classList.contains("element__like-button_active")) {
-                this._handleRemoveLikes(this._id).then( () => {
+                this._handleRemoveLikes(this._id).then((res) => {
                     buttonLike.classList.remove("element__like-button_active");
+                    this._likes = res.likes
                     likeStatus.textContent = this._likes.length;
                 })
             } else {
-                this._handleAddLikes(this._id).then( () => {
+                this._handleAddLikes(this._id).then((res) => {
                     buttonLike.classList.add("element__like-button_active");
+                    this._likes = res.likes
                     likeStatus.textContent = this._likes.length;
                 })
             }

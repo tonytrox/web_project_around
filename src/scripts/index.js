@@ -90,7 +90,7 @@ function createCard(name, link, likes, _id, owner) {
       return api.putLikesCard(cardId)
     },
     handleRemoveLikes: (cardId) => {
-      return api.RemoveLikesCard(cardId)
+      return api.removeLikesCard(cardId)
     }
 
     }
@@ -101,10 +101,7 @@ function createCard(name, link, likes, _id, owner) {
 
 
 const popupAddPlace = new PopupWithForm ((formData) => {
-//no es necesario llamar formData.likes por que ya lo recibe el constructor una vez que se crea el objeto
-// no es necesario llamarlo antes de su creación
-  api.postCard(formData.place, formData.link) // llama a la API
-  .then(res => res.json())
+  return api.postCard(formData.place, formData.link) // llama a la API
   .then((cardData) => {
     const cardPlace = createCard(cardData.name, cardData.link, cardData.likes); // constructor
     cardSection.addItem(cardPlace);
@@ -142,7 +139,6 @@ popupWithConfirm.setEventListeners();
 // API
 
 api.getInfoProfile() // llama a la API
-.then(res => res.json())
 .then((data) => {
   profileName.textContent = data.name;
   profileDescription.textContent = data.about;
@@ -159,7 +155,6 @@ api.getInfoProfile() // llama a la API
 
 
 api.getInitialCards() // llama a la API
-.then(res => res.json()) // Lee y transforma la respuesta en datos JSON y se lo pasa al siguiente .then
 .then((data) => {
   console.log(data);
   cardSection = new Section({
@@ -178,10 +173,9 @@ cardSection.rendererElement();
 const editAvatarButton = document.querySelector(".profile__avatar");
 
 const formEditAvatar = new PopupWithForm((data) => {
-  const avatarUrl = data.link; // Obtener la URL del input
+const avatarUrl = data.link; // Obtener la URL del input
 
-  api.updateAvatar(avatarUrl)
-    .then(res => res.json())
+ return api.updateAvatar(avatarUrl)
     .then(responseJson => {
       profileAvatar.src = responseJson.avatar; // Actualizar el src de la imagen del avatar
     })
